@@ -1,20 +1,21 @@
 package run;
 
-import impl.AssemblyLine;
-import impl.Tank;
-import impl.lineStepImpl.LineStepBody;
-import impl.lineStepImpl.LineStepMotor;
-import impl.lineStepImpl.LineStepTower;
+import impl.AssemblyLineImpl;
+import impl.TankImpl;
+import impl.lineStepImpl.BuildBodyImpl;
+import impl.lineStepImpl.BuildMotorImpl;
+import impl.lineStepImpl.BuildTowerImpl;
 
 public class Run {
     public static void main(String[] args) {
-        LineStepMotor lineStepMotor = new LineStepMotor();
-        LineStepBody lineStepBody = new LineStepBody();
-        LineStepTower lineStepTower = new LineStepTower();
+        BuildMotorImpl motor = new BuildMotorImpl();
+        BuildBodyImpl body = new BuildBodyImpl();
+        BuildTowerImpl tower = new BuildTowerImpl();
 
-        AssemblyLine assemblyLine = new AssemblyLine(lineStepMotor, lineStepBody, lineStepTower);
-        Tank tank = new Tank(007);
+        AssemblyLineImpl assemblyLine = new AssemblyLineImpl(motor, body, tower);
+        TankImpl tank = new TankImpl(007);
         assemblyLine.assembleProduct(tank);
+        System.out.println(tank);
     }
 
 }

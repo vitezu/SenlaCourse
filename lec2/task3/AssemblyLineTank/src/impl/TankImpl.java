@@ -5,11 +5,11 @@ import api.IProdukt;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tank implements IProdukt {
+public class TankImpl implements IProdukt {
     private Integer serNum;
     private List<IProductPart> productParts = new ArrayList<>();
 
-    public Tank(Integer serNum) {
+    public TankImpl(Integer serNum) {
         this.serNum = serNum;
     }
 
@@ -41,5 +41,14 @@ public class Tank implements IProdukt {
     public void installThirdPart(IProductPart productPart) {
         productParts.add(productPart);
         System.out.println("Башня установлена");
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("TankImpl{");
+        sb.append("serNum=").append(serNum);
+        sb.append(", productParts=").append(productParts);
+        sb.append('}');
+        return sb.toString();
     }
 }

@@ -2,12 +2,12 @@ package impl.produktPartImpl;
 
 import api.IProductPart;
 
-public class Body implements IProductPart {
+public class BodyImpl implements IProductPart {
     private String color;
     private String armor;
     private Integer weight;
 
-    public Body(String color, String armor, Integer weight) {
+    public BodyImpl(String color, String armor, Integer weight) {
         this.color = color;
         this.armor = armor;
         this.weight = weight;

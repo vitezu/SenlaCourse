@@ -2,12 +2,13 @@ package impl.lineStepImpl;
 
 import api.ILineStep;
 import api.IProductPart;
-import impl.produktPartImpl.Motor;
+import impl.produktPartImpl.MotorImpl;
 
-public class LineStepMotor implements ILineStep {
+public class BuildMotorImpl implements ILineStep {
+    MotorImpl motor = new MotorImpl(001, 600, 1000);
+
     @Override
     public IProductPart buildProduktPart() {
-        Motor motor = new Motor(001, 600, 1000);
         System.out.println("Мотор создан");
         return motor;
     }

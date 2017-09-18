@@ -2,11 +2,11 @@ package impl.produktPartImpl;
 
 import api.IProductPart;
 
-public class Tower implements IProductPart {
+public class TowerImpl implements IProductPart {
     private Integer rangeFire;
     private Integer caliber;
 
-    public Tower(Integer rangeFire, Integer caliber) {
+    public TowerImpl(Integer rangeFire, Integer caliber) {
         this.rangeFire = rangeFire;
         this.caliber = caliber;
     }
