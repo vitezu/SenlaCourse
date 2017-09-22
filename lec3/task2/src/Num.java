@@ -1,15 +1,29 @@
 import java.util.Random;
 
 public class Num {
-    public Integer calcNum() {
-    Random random =  new Random();
-    int n = 100 + random.nextInt(900);
-        System.out.println("Случайное число " + n);
-    int sum = 0;
-        while(n != 0){
-        sum = sum + (n % 10);
-        n/=10;
+    private Integer num;
+    private Integer sumDigits;
+
+    public Integer getRandomNum() {
+        Random random = new Random();
+         num = 100 + random.nextInt(899);
+        return num;
     }
-        return sum;
+
+    public void calcSum (Integer num) {
+      sumDigits = 0;
+        while(num != 0){
+            sumDigits = sumDigits + (num % 10);
+            num/=10;
+    }
+        System.out.print(toString());
 }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder();
+        sb.append("Random num: ").append(num).append("\n");
+        sb.append("Sum of digits: ").append(sumDigits);
+        return sb.toString();
+    }
 }

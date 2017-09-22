@@ -1,18 +1,20 @@
 
 
 public class Array {
-    static String s = "Mama mila ramu v Paris";
 
-    public String split() {
-        String arrayString = "";
-        String[] mas = s.split("[,;:.!?\\s]+");
+    public String[] split(String s) {
+        String[] mas = s.split("[!,\\s]+");
+        return mas;
+    }
 
+    public String selectUpWorlds(String[] mas) {
+        String arrayToString = "";
         for (int i = 0; i < mas.length; i++){
             if ((mas[i].charAt(0) >= 'A') && (mas[i].charAt(0) <= 'Z')){
-                arrayString += mas[i];
+                arrayToString += mas[i];
             }
         }
-        return arrayString;
+        return arrayToString;
     }
 }
 
