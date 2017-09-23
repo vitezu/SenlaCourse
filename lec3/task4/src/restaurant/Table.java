@@ -2,11 +2,22 @@ package restaurant;
 
 public class Table {
     private Integer numId;
-    private Boolean occupied;
+    private Order order;
+    private Integer count = 0;
 
-    public Table(Integer numId, Boolean occupied) {
+    public Table(Integer numId) {
         this.numId = numId;
-        this.occupied = occupied;
+    }
+
+    public void setOrder (Order order) {
+        this.order = order;
+    }
+    public void cancelOrder () {
+        this.order = null;
+    }
+
+    public Order getOrder() {
+        return order;
     }
 
     public Integer getNumId() {

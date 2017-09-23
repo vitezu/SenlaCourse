@@ -1,10 +1,12 @@
 package restaurant;
 
+import java.util.Arrays;
+
 public class Order {
     private Integer numId;
     private Table table;
-    private Food[] foods = new Food[6];
-    private Integer n = 0;
+    private Food[] foods = new Food[20];
+    private Integer count = 0;
 
 
     public Order(Integer numId, Table table) {
@@ -21,17 +23,27 @@ public class Order {
     }
 
     public void addFood(Food food) {
-        foods[n] = food;
-        n++;
+        foods[count] = food;
+        count++;
     }
 
-    public Integer getOrderPrice(Order order) {
+    public Integer getOrderPrice() {
         Integer sum = 0;
-        for (int i = 0; i < order.foods.length; i++) {
-            if (order.foods[i] != null) {
-                sum += order.foods[i].getPrice();
+        for (int i = 0; i < foods.length; i++) {
+            if (foods[i] != null) {
+                sum += foods[i].getPrice();
             } else break;
         }
         return sum;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "numId=" + numId +
+                ", table=" + table +
+                ", foods=" + Arrays.toString(foods) +
+                ", count=" + count +
+                '}';
     }
 }

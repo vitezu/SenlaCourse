@@ -2,20 +2,18 @@ package restaurant;
 
 public class Cook {
     private String name;
-    private Boolean category;
     private Order order;
     private Boolean statFree = true;
 
-    public Cook(String name, Boolean category) {
+    public Cook(String name) {
         this.name = name;
-        this.category = category;
     }
 
     public String getName() {
         return name;
     }
 
-    public void getOrder (Order order) {
+    public void setOrder (Order order) {
         if (statFree) {
             this.order = order;
             statFree = false;
@@ -24,7 +22,7 @@ public class Cook {
         }
 
     }
-    public Order showOrder (){
+    public Order getOrder (){
         return this.order;
     }
 
@@ -32,7 +30,6 @@ public class Cook {
     public String toString() {
         final StringBuilder sb = new StringBuilder("Cook{");
         sb.append("name='").append(name).append('\'');
-        sb.append(", category=").append(category);
         sb.append('}');
         return sb.toString();
     }
