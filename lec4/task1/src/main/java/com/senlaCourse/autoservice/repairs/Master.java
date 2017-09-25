@@ -1,6 +1,6 @@
-package repairs;
+package com.senlaCourse.autoservice.repairs;
 
-import control.Order;
+import com.senlaCourse.autoservice.control.Order;
 
 public class Master {
 
@@ -36,7 +36,7 @@ public class Master {
         final StringBuilder sb = new StringBuilder("Master{");
         sb.append("name='").append(name).append('\'');
         sb.append(", statFree=").append(statFree);
-        sb.append(", control=").append(order);
+        sb.append(", com.senlaCourse.autoservice.control=").append(order);
         sb.append('}');
         return sb.toString();
     }

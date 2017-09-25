@@ -1,4 +1,4 @@
-package repairs;
+package com.senlaCourse.autoservice.repairs;
 
 public class Place {
 private Integer numPlace;

@@ -1,7 +1,7 @@
-package comparator;
+package com.senlaCourse.autoservice.comparator;
 
 
-import control.Order;
+import com.senlaCourse.autoservice.control.Order;
 
 import java.util.Comparator;
 

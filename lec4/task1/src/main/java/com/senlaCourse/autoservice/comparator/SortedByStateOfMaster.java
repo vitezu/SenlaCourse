@@ -1,6 +1,6 @@
-package comparator;
+package com.senlaCourse.autoservice.comparator;
 
-import repairs.Master;
+import com.senlaCourse.autoservice.repairs.Master;
 import java.util.Comparator;
 
 public class SortedByStateOfMaster implements Comparator <Master> {

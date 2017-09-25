@@ -1,6 +1,6 @@
-package control;
+package com.senlaCourse.autoservice.control;
 
-import repairs.Master;
+import com.senlaCourse.autoservice.repairs.Master;
 
 import java.util.ArrayList;
 import java.util.Date;

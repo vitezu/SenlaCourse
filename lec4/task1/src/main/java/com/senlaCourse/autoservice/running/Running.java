@@ -1,8 +1,8 @@
-package running;
-import control.Order;
-import control.Manager;
-import repairs.Master;
-import repairs.Place;
+package com.senlaCourse.autoservice.running;
+import com.senlaCourse.autoservice.control.Order;
+import com.senlaCourse.autoservice.control.Manager;
+import com.senlaCourse.autoservice.repairs.Master;
+import com.senlaCourse.autoservice.repairs.Place;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -11,7 +11,7 @@ import java.util.*;
 public class Running {
     public static void main(String[] args) throws Exception {
         Place place1 = new Place(1, true);
-        Place place2 = new Place(1, true);
+        Place place2 = new Place(2, true);
         Manager manager = new Manager();
         Master master1 = new Master("Ivanov", true);
         Master master2 = new Master("Bobrov", true);
