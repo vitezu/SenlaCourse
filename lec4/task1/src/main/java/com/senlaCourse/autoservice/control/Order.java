@@ -8,9 +8,7 @@ import java.util.List;
 
 public class Order {
     private Integer num;
-    private enum  stat{COMPLETED,
-            DELETED,
-            CANCELED}
+    private StateOrder  stateOrder;
     private Date dateOfOrder;
     private Date dateOfEnd;
     private Date dateOfPlaningEnd;
@@ -23,6 +21,14 @@ public class Order {
         this.dateOfEnd = dateOfEnd;
         this.dateOfPlaningEnd = dateOfPlaningEnd;
         this.price = price;
+    }
+
+    public StateOrder getStateOrder() {
+        return stateOrder;
+    }
+
+    public void setStateOrder(StateOrder stateOrder) {
+        this.stateOrder = stateOrder;
     }
 
     public Integer getNum() {
@@ -55,6 +61,7 @@ public class Order {
     public String toString() {
         final StringBuilder sb = new StringBuilder("Order{");
         sb.append("num=").append(num);
+        sb.append(", stateOrder=").append(stateOrder);
         sb.append(", dateOfOrder=").append(dateOfOrder);
         sb.append(", dateOfEnd=").append(dateOfEnd);
         sb.append(", dateOfPlaningEnd=").append(dateOfPlaningEnd);

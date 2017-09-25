@@ -1,6 +1,7 @@
 package com.senlaCourse.autoservice.running;
 import com.senlaCourse.autoservice.control.Order;
 import com.senlaCourse.autoservice.control.Manager;
+import com.senlaCourse.autoservice.control.StateOrder;
 import com.senlaCourse.autoservice.repairs.Master;
 import com.senlaCourse.autoservice.repairs.Place;
 
@@ -10,6 +11,10 @@ import java.util.*;
 
 public class Running {
     public static void main(String[] args) throws Exception {
+        StateOrder stateOrderCanceled = StateOrder.CANCELED;
+        StateOrder stateOrderDeleted = StateOrder.DELETED;
+        StateOrder stateOrderCompleted = StateOrder.COMPLETED;
+
         Place place1 = new Place(1, true);
         Place place2 = new Place(2, true);
         Manager manager = new Manager();
@@ -28,6 +33,7 @@ public class Running {
         Order order2 = new Order(2, dt2, null, null, 43.0f);
         Order order3 = new Order(3, dt3, null, null, 70.0f);
         Order order4 = new Order(4, dt4, null, null, 60.0f);
+        order1.setStateOrder(stateOrderCanceled);
 
         manager.addPlace(place1);
         manager.addPlace(place2);
