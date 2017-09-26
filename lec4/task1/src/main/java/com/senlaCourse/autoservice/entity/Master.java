@@ -1,21 +1,19 @@
-package com.senlaCourse.autoservice.repairs;
-
-import com.senlaCourse.autoservice.control.Order;
+package com.senlaCourse.autoservice.entity;
 
 public class Master {
 
     private String name;
-    private Boolean statFree;
+    private Boolean stateFree;
     private Order order;
 
-    public Master(String name, Boolean statFree) {
+    public Master(String name, Boolean stateFree) {
         this.name = name;
-        this.statFree = statFree;
+        this.stateFree = stateFree;
     }
 
     public void setOrder (Order order) {
         this.order = order;
-        statFree = false;
+        stateFree = false;
     }
 
 
@@ -23,8 +21,8 @@ public class Master {
         return name;
     }
 
-    public Boolean getStatFree() {
-        return statFree;
+    public Boolean getStateFree() {
+        return stateFree;
     }
 
     public Order getOrder() {
@@ -35,8 +33,8 @@ public class Master {
     public String toString() {
         final StringBuilder sb = new StringBuilder("Master{");
         sb.append("name='").append(name).append('\'');
-        sb.append(", statFree=").append(statFree);
-        sb.append(", com.senlaCourse.autoservice.control=").append(order);
+        sb.append(", stateFree=").append(stateFree);
+        sb.append(", com.senlaCourse.autoservice.service=").append(order);
         sb.append('}');
         return sb.toString();
     }

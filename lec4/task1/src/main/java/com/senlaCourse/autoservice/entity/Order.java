@@ -1,45 +1,50 @@
-package com.senlaCourse.autoservice.control;
+package com.senlaCourse.autoservice.entity;
 
-import com.senlaCourse.autoservice.repairs.Master;
-
-import java.util.ArrayList;
+import com.senlaCourse.autoservice.service.StateOrder;
 import java.util.Date;
-import java.util.List;
 
 public class Order {
     private Integer num;
-    private StateOrder  stateOrder;
+    private StateOrder stateOrder;
     private Date dateOfOrder;
     private Date dateOfEnd;
     private Date dateOfPlaningEnd;
     private Float price;
-    private List<Master> masters = new ArrayList<Master>();
 
-    public  Order(Integer num, Date dateOfOrder, Date dateOfEnd, Date dateOfPlaningEnd, Float price) {
+    public  Order(Integer num, Date dateOfOrder, Date dateOfPlaningEnd, Float price) {
         this.num = num;
         this.dateOfOrder = dateOfOrder;
-        this.dateOfEnd = dateOfEnd;
         this.dateOfPlaningEnd = dateOfPlaningEnd;
         this.price = price;
+    }
+
+    public void setDateOfOrder(Date dateOfOrder) {
+        this.dateOfOrder = dateOfOrder;
+    }
+
+    public Date getDateOfEnd() {
+        return dateOfEnd;
+    }
+
+    public void setDateOfEnd(Date dateOfEnd) {
+        this.dateOfEnd = dateOfEnd;
+    }
+
+    public void setDateOfPlaningEnd(Date dateOfPlaningEnd) {
+        this.dateOfPlaningEnd = dateOfPlaningEnd;
     }
 
     public StateOrder getStateOrder() {
         return stateOrder;
     }
-
     public void setStateOrder(StateOrder stateOrder) {
         this.stateOrder = stateOrder;
     }
-
     public Integer getNum() {
         return num;
     }
-
     public Float getPrice() {
         return price;
-    }
-    public void setMaster (Master master) {
-        masters.add(master);
     }
     public void setPrice(Float price) {
         this.price = price;
@@ -47,10 +52,6 @@ public class Order {
 
     public Date getDateOfOrder() {
         return dateOfOrder;
-    }
-
-    public Date getDateOfEnd() {
-        return dateOfEnd;
     }
 
     public Date getDateOfPlaningEnd() {
@@ -66,7 +67,6 @@ public class Order {
         sb.append(", dateOfEnd=").append(dateOfEnd);
         sb.append(", dateOfPlaningEnd=").append(dateOfPlaningEnd);
         sb.append(", price=").append(price);
-        sb.append(", masters=").append(masters);
         sb.append('}');
         return sb.toString();
     }
