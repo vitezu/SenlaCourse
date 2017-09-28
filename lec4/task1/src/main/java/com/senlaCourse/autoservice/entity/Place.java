@@ -1,6 +1,8 @@
 package com.senlaCourse.autoservice.entity;
 
-public class Place {
+import java.io.Serializable;
+
+public class Place implements Serializable {
 private Integer numPlace;
 private Boolean stateFree = true;
 

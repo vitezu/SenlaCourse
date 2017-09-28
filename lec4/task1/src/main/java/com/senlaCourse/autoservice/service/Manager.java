@@ -12,6 +12,7 @@ import com.senlaCourse.autoservice.entity.Place;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class Manager {
@@ -23,12 +24,21 @@ public class Manager {
     private final String MESSAGE6 = "Sorted by date of planing end order";
     private final String MESSAGE7 = "Sorted by date of end order";
     private final String MESSAGE8 = "Sorted by date of operation order";
-
+    private final String MESSAGE9 = "Count of free places in future";
+    private final String MESSAGE10 = "Free places";
+    private final String MESSAGE11 = "Sorted by date order with state";
 
     private List<Place> places = new ArrayList<Place>(15);
-    private List<Place> freePlaces = new ArrayList<Place>();
     private List<Order> orders = new ArrayList<Order>();
     private List<Master> masters = new ArrayList<Master>();
+
+    public List<Master> getMasters() {
+        return masters;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
 
     public void addPlace(Place place) {
         {
@@ -39,12 +49,6 @@ public class Manager {
     public void deletePlace(Place place) {
         {
             places.remove(place);
-        }
-    }
-
-    public void deleteOrder(Order order) {
-        {
-            places.remove(order);
         }
     }
 
@@ -137,18 +141,19 @@ public class Manager {
         }
     }
 
-    public List<Place> getFreePlaces() {
-        for (int i = 0; i < places.size(); i++) {
-            if (places.get(i).getStateFree() == true) {
-                freePlaces.add(places.get(i));
-            } else {
-                break;
+    public void getFreePlaces() {
+        System.out.println();
+        System.out.println(MESSAGE10);
+        for (Place place : places) {
+            if (place.getStateFree() == true) {
+                System.out.println(place);
             }
         }
-        return freePlaces;
     }
 
     public int calcFreePlaces() {
+        System.out.println();
+        System.out.println(MESSAGE9);
         int countFreePlace = 0;
         int countFreeMaster = 0;
 
@@ -164,5 +169,26 @@ public class Manager {
             }
         }
         return (countFreePlace + countFreeMaster)/2;
+    }
+    public void sortByDateOrderWithState () {
+        System.out.println();
+        Collections.sort(orders, new ComparatorByDateOfOrder());
+        System.out.println(MESSAGE11);
+        for (Order order : orders) {
+            if (order.getStateOrder() != null)
+                System.out.println(order.toString());
+        }
+    }
+    public void canceleOrder (Order order) {
+        order.setStateOrder(StateOrder.CANCELED);
+    }
+    public void deleteOrder (Order order) {
+        order.setStateOrder(StateOrder.DELETED);
+    }
+    public void closeOrder (Order order) {
+        order.setStateOrder(StateOrder.COMPLETED);
+    }
+    public void shiftDateOfPlaningEnd (Order order, Date date) {
+        order.setDateOfPlaningEnd(date);
     }
 }

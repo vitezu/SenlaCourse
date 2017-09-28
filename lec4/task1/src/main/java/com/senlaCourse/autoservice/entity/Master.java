@@ -1,7 +1,8 @@
 package com.senlaCourse.autoservice.entity;
 
-public class Master {
+import java.io.Serializable;
 
+public class Master implements Serializable {
     private String name;
     private Boolean stateFree;
     private Order order;
@@ -34,7 +35,7 @@ public class Master {
         final StringBuilder sb = new StringBuilder("Master{");
         sb.append("name='").append(name).append('\'');
         sb.append(", stateFree=").append(stateFree);
-        sb.append(", com.senlaCourse.autoservice.service=").append(order);
+        sb.append(", order=").append(order);
         sb.append('}');
         return sb.toString();
     }

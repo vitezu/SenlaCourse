@@ -4,17 +4,23 @@ import com.senlaCourse.autoservice.service.Manager;
 import com.senlaCourse.autoservice.service.StateOrder;
 import com.senlaCourse.autoservice.entity.Master;
 import com.senlaCourse.autoservice.entity.Place;
+import com.senlaCourse.autoservice.writerReader.ReadObjectFromFile;
+import com.senlaCourse.autoservice.writerReader.WriteObjectToFile;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class Running {
+public class Runner {
+
     public static void main(String[] args) throws Exception {
+        final String FILENAME1 = "master.ser";
+        final String FILENAME2 = "order.ser";
+
+        WriteObjectToFile writeObject = new WriteObjectToFile();
+        ReadObjectFromFile readObject = new ReadObjectFromFile();
+
         StateOrder stateOrderOperating = StateOrder.OPERATING;
-        StateOrder stateOrderCanceled = StateOrder.CANCELED;
-        StateOrder stateOrderDeleted = StateOrder.DELETED;
-        StateOrder stateOrderCompleted = StateOrder.COMPLETED;
 
         Place place1 = new Place(1, true);
         Place place2 = new Place(2, true);
@@ -43,14 +49,15 @@ public class Running {
 
         manager.addPlace(place1);
         manager.addPlace(place2);
-        System.out.println("Free places: " + manager.getFreePlaces());
+       manager.getFreePlaces();
 
         master1.setOrder(order1);
+        place1.setStateFree(false);
         master2.setOrder(order2);
 
         order1.setStateOrder(stateOrderOperating);
         order2.setStateOrder(stateOrderOperating);
-        order3.setStateOrder(stateOrderCanceled);
+//        order3.setStateOrder(stateOrderCanceled);
         manager.sortByDateOfOrder();
         manager.sortByDateOfPlaningEndOrder();
         manager.sortByDateOfEndOrder();
@@ -70,5 +77,17 @@ public class Running {
         System.out.println(master1.getName() + master1.getOrder());
 
         System.out.println(manager.calcFreePlaces());
+
+        manager.sortByDateOrderWithState();
+
+        manager.getFreePlaces();
+        manager.shiftDateOfPlaningEnd(order1, df.parse("20-09-2018"));
+
+        writeObject.writeToFile( FILENAME1, manager.getMasters());
+        writeObject.writeToFile( FILENAME2, manager.getOrders());
+
+        readObject.readFromFile(FILENAME1, manager.getMasters());
+        readObject.readFromFile(FILENAME2, manager.getOrders());
+
     }
 }
