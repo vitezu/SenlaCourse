@@ -11,7 +11,7 @@ public class Master {
         this.stateFree = stateFree;
     }
 
-    public void setOrder (Order order) {
+    public void setOrder(Order order) {
         this.order = order;
         stateFree = false;
     }
@@ -33,7 +33,7 @@ public class Master {
         final StringBuilder sb = new StringBuilder("Master{");
         sb.append("name='").append(name).append('\'');
         sb.append(", stateFree=").append(stateFree);
-        sb.append(", com.senlaCourse.autoservice.service=").append(order);
+        sb.append(", order=").append(order);
         sb.append('}');
         return sb.toString();
     }

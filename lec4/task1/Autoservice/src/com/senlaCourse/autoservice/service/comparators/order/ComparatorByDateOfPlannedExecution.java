@@ -4,7 +4,7 @@ import com.senlaCourse.autoservice.entity.Order;
 
 import java.util.Comparator;
 
-public class ComparatorByDateOfPlaningEndOrder implements Comparator<Order> {
+public class ComparatorByDateOfPlannedExecution implements Comparator<Order> {
         @Override
         public int compare(Order obj1, Order obj2) {
             if (obj1.getDateOfPlaningEnd() == null) {
