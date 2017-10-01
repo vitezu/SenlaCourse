@@ -3,10 +3,9 @@ package com.senlaCourse.autoservice.stores;
 import com.senlaCourse.autoservice.entity.Master;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MasterStoreImpl {
-    private List<Master> masters = new ArrayList<Master>();
+    private ArrayList<Master> masters = new ArrayList<Master>();
 
     public void delete(Master master) {
         masters.remove(master);
@@ -15,11 +14,11 @@ public class MasterStoreImpl {
         masters.add(master);
     }
 
-    public List<Master> getMasters() {
+    public ArrayList<Master> getMasters() {
         return masters;
     }
 
-    public void setMasters(List<Master> masters) {
+    public void setMasters(ArrayList<Master> masters) {
         this.masters = masters;
     }
 }

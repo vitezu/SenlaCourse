@@ -3,10 +3,9 @@ package com.senlaCourse.autoservice.stores;
 import com.senlaCourse.autoservice.entity.Place;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class PlaceStoreImpl {
-    private List<Place> places = new ArrayList<Place>(15);
+    private ArrayList<Place> places = new ArrayList<Place>();
 
     public void add(Place place) {
         {
@@ -19,11 +18,11 @@ public class PlaceStoreImpl {
         }
     }
 
-    public List<Place> getPlaces() {
+    public ArrayList<Place> getPlaces() {
         return places;
     }
 
-    public void setPlaces(List<Place> places) {
+    public void setPlaces(ArrayList<Place> places) {
         this.places = places;
     }
 }

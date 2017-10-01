@@ -5,10 +5,9 @@ import com.senlaCourse.autoservice.entity.Order;
 import com.senlaCourse.autoservice.entity.StateOrder;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class OrderStoreImpl implements IOrderStore {
-    List<Order> orders = new ArrayList<Order>();
+    ArrayList<Order> orders = new ArrayList<Order>();
 
     @Override
     public void delete(Order order) {
@@ -35,11 +34,11 @@ public class OrderStoreImpl implements IOrderStore {
         order.setStateOrder(StateOrder.COMPLETED);
     }
 
-    public List<Order> getOrders() {
+    public ArrayList<Order> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<Order> orders) {
+    public void setOrders(ArrayList<Order> orders) {
         this.orders = orders;
     }
 }

@@ -1,5 +1,6 @@
 package com.senlaCourse.autoservice.runner;
 
+import com.danco.training.TextFileWorker;
 import com.senlaCourse.autoservice.entity.Master;
 import com.senlaCourse.autoservice.entity.Order;
 import com.senlaCourse.autoservice.entity.Place;
@@ -11,11 +12,12 @@ import com.senlaCourse.autoservice.stores.OrderStoreImpl;
 import com.senlaCourse.autoservice.stores.PlaceStoreImpl;
 import com.senlaCourse.autoservice.util.DateUtil;
 
-import java.text.ParseException;
-import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Runner {
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) throws Exception {
         OrderStoreImpl orderStore = new OrderStoreImpl();
         OrderService orderService = new OrderService();
         MasterStoreImpl masterStore = new MasterStoreImpl();
@@ -29,28 +31,28 @@ public class Runner {
         Order order3 = new Order(3, du.create("13/07/2017"), null, 65.0f);
         Master master1 = new Master("Pupkin", true);
         Master master2 = new Master("Ivanov", true);
-        Place place1 = new Place(1,true);
-        Place place2 = new Place(2,true);
+        Place place1 = new Place(1, true);
+        Place place2 = new Place(2, true);
 
 
         orderStore.add(order1);
         orderStore.add(order2);
         orderStore.add(order3);
-        orderService.sortByPriceOfOrder((ArrayList<Order>) orderStore.getOrders());
-        orderService.sortByDateOfOrder((ArrayList<Order>) orderStore.getOrders());
-        orderService.sortByDateOfExecution((ArrayList<Order>) orderStore.getOrders());
-        orderService.sortByDateOfPlannedExecution((ArrayList<Order>) orderStore.getOrders());
+        orderService.sortByPriceOfOrder(orderStore.getOrders());
+        orderService.sortByDateOfOrder(orderStore.getOrders());
+        orderService.sortByDateOfExecution(orderStore.getOrders());
+        orderService.sortByDateOfPlannedExecution(orderStore.getOrders());
         orderService.operateOrder(order1);
-        orderService.sortByPriceOfOperationOrder((ArrayList<Order>) orderStore.getOrders());
-        orderService.sortByDateOfOperationOrder((ArrayList<Order>) orderStore.getOrders());
+        orderService.sortByPriceOfOperationOrder(orderStore.getOrders());
+        orderService.sortByDateOfOperationOrder(orderStore.getOrders());
         orderService.operateOrder(order1);
         orderService.operateOrder(order2);
 
 
         masterStore.add(master1);
         masterStore.add(master2);
-        masterService.sortByNameOfMaster((ArrayList<Master>) masterStore.getMasters());
-        masterService.sortByStateFree((ArrayList<Master>) masterStore.getMasters());
+        masterService.sortByNameOfMaster(masterStore.getMasters());
+        masterService.sortByStateFree(masterStore.getMasters());
 
         master1.setOrder(order1);
 
@@ -59,12 +61,49 @@ public class Runner {
         placeService.calcFreePlaces(placeStore.getPlaces(), masterStore.getMasters());
         placeService.getFreePlaces(placeStore.getPlaces());
 
+        String[] arrayPlaces = new String[placeStore.getPlaces().size()];
+        for (int i = 0; i < placeStore.getPlaces().size(); i++) {
+            arrayPlaces[i] = String.valueOf(placeStore.getPlaces().get(i));
+        }
 
+        String[] arrayMasters = new String[masterStore.getMasters().size()];
+        for (int i = 0; i < masterStore.getMasters().size(); i++) {
+            arrayMasters[i] = String.valueOf(masterStore.getMasters().get(i));
+        }
 
+        String[] arrayOrders = new String[orderStore.getOrders().size()];
+        for (int i = 0; i < orderStore.getOrders().size(); i++) {
+            arrayOrders[i] = String.valueOf(orderStore.getOrders().get(i));
+        }
 
+        //Test write/rea file
+        final String TEST_FILE = args[0];
+        final String[] testValues = arrayOrders;
 
+        // Create new file
+        Path filePath = Paths.get(TEST_FILE);
+        if (!Files.exists(filePath)){
+            Files.createFile(filePath);
+        }
 
+        // Work example
+        try {
+            TextFileWorker fileWorker = new TextFileWorker(TEST_FILE);
+            fileWorker.writeToFile(testValues);
+            Object[] readedValues = fileWorker.readFromFile();
+            for (Object s : readedValues) {
+                System.out.println(s);
+            }
 
+            // Check result
+            for (int i = 0; i < testValues.length; i++) {
+
+                if (!readedValues[i].equals(testValues[i])) {
+                    throw new RuntimeException("Error. Not equal values: " + readedValues[i] + " and " + testValues[i]);
+                }
+            }
+        } finally {
+//            Files.deleteIfExists(filePath);
+        }
     }
-
 }
