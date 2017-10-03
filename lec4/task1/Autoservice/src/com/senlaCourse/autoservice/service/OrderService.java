@@ -6,10 +6,12 @@ import com.senlaCourse.autoservice.service.comparators.order.ComparatorByDateOfE
 import com.senlaCourse.autoservice.service.comparators.order.ComparatorByDateOfOrder;
 import com.senlaCourse.autoservice.service.comparators.order.ComparatorByDateOfPlannedExecution;
 import com.senlaCourse.autoservice.service.comparators.order.ComparatorByPriceOfOrder;
+import com.senlaCourse.autoservice.stores.OrderStoreImpl;
 import com.senlaCourse.autoservice.util.Printer;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class OrderService {
     private final String MESSAGE1 = "Sorted by date of order";
@@ -24,9 +26,19 @@ public class OrderService {
     private final ComparatorByDateOfPlannedExecution comparatorByDateOfPlannedExecution = new ComparatorByDateOfPlannedExecution();
     private final ComparatorByDateOfExecution comparatorByDateOfExecution = new ComparatorByDateOfExecution();
     private Printer printer = new Printer();
+    private OrderStoreImpl orderStore = new OrderStoreImpl();
 
-    public void sortByDateOfOrder(ArrayList<Order> orders) {
-        ArrayList<Order> ordersSorted = (ArrayList<Order>) orders.clone();
+    public void addOrder (Order order) {
+        orderStore.add(order);
+    }
+
+    public void deleteOrder (Order order) {
+        orderStore.delete(order);
+        order.setStateOrder(StateOrder.DELETED);
+    }
+
+    public void sortByDateOfOrder() {
+        List<Order> ordersSorted = (ArrayList<Order>) orderStore.getOrders().clone();
         Collections.sort(ordersSorted, comparatorByDateOfOrder);
         printer.printLineEmpty();
         printer.printMessage(MESSAGE1);
@@ -34,8 +46,8 @@ public class OrderService {
             printer.printObject(order);
     }
 
-    public void sortByPriceOfOrder(ArrayList<Order> orders) {
-        ArrayList<Order> ordersSorted = (ArrayList<Order>) orders.clone();
+    public void sortByPriceOfOrder() {
+        List<Order> ordersSorted = (ArrayList<Order>) orderStore.getOrders().clone();
         printer.printLineEmpty();
         Collections.sort(ordersSorted, comparatorByPriceOfOrder);
         printer.printMessage(MESSAGE2);
@@ -43,8 +55,8 @@ public class OrderService {
             printer.printObject(order);
     }
 
-    public void sortByDateOfPlannedExecution(ArrayList<Order> orders) {
-        ArrayList<Order> ordersSorted = (ArrayList<Order>) orders.clone();
+    public void sortByDateOfPlannedExecution() {
+        ArrayList<Order> ordersSorted = (ArrayList<Order>) orderStore.getOrders().clone();
         printer.printLineEmpty();
         Collections.sort(ordersSorted, comparatorByDateOfPlannedExecution);
         printer.printMessage(MESSAGE3);
@@ -52,8 +64,8 @@ public class OrderService {
             printer.printObject(order);
     }
 
-    public void sortByDateOfExecution(ArrayList<Order> orders) {
-        ArrayList<Order> ordersSorted = (ArrayList<Order>) orders.clone();
+    public void sortByDateOfExecution() {
+        ArrayList<Order> ordersSorted = (ArrayList<Order>) orderStore.getOrders().clone();
         printer.printLineEmpty();
         Collections.sort(ordersSorted, comparatorByDateOfExecution);
         printer.printMessage(MESSAGE4);
@@ -61,8 +73,8 @@ public class OrderService {
             printer.printObject(order);
     }
 
-    public void sortByPriceOfOperationOrder(ArrayList<Order> orders) {
-        ArrayList<Order> ordersSorted = (ArrayList<Order>) orders.clone();
+    public void sortByPriceOfOperationOrder() {
+        ArrayList<Order> ordersSorted = (ArrayList<Order>) orderStore.getOrders().clone();
         printer.printLineEmpty();
         Collections.sort(ordersSorted, comparatorByPriceOfOrder);
         printer.printMessage(MESSAGE5);
@@ -72,8 +84,8 @@ public class OrderService {
         }
     }
 
-    public void sortByDateOfOperationOrder(ArrayList<Order> orders) {
-        ArrayList<Order> ordersSorted = (ArrayList<Order>) orders.clone();
+    public void sortByDateOfOperationOrder() {
+        ArrayList<Order> ordersSorted = (ArrayList<Order>) orderStore.getOrders().clone();
         printer.printLineEmpty();
         Collections.sort(ordersSorted, comparatorByDateOfOrder);
         printer.printMessage(MESSAGE6);
@@ -85,10 +97,6 @@ public class OrderService {
 
     public void canceleOrder(Order order) {
         order.setStateOrder(StateOrder.CANCELED);
-    }
-
-    public void deleteOrder(Order order) {
-        order.setStateOrder(StateOrder.DELETED);
     }
 
     public void closeOrder(Order order) {

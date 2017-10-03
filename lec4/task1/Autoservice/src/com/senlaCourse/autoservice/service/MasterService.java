@@ -1,8 +1,11 @@
 package com.senlaCourse.autoservice.service;
 
+import com.senlaCourse.autoservice.api.IMasterStore;
 import com.senlaCourse.autoservice.entity.Master;
+import com.senlaCourse.autoservice.entity.Order;
 import com.senlaCourse.autoservice.service.comparators.master.ComparatorByNameOfMaster;
 import com.senlaCourse.autoservice.service.comparators.master.ComparatorByStateOfMaster;
+import com.senlaCourse.autoservice.stores.MasterStoreImpl;
 import com.senlaCourse.autoservice.util.Printer;
 
 import java.util.ArrayList;
@@ -14,8 +17,16 @@ public class MasterService {
     ComparatorByStateOfMaster comparatorByStateOfMaster = new ComparatorByStateOfMaster();
     private final String MESSAGE1 = "Sorted by name of master";
     private final String MESSAGE2 = "Sorted by state free of master";
+    private MasterStoreImpl masterStore = new MasterStoreImpl();
 
 
+    public void addMaster(Master master) {
+        masterStore.add(master);
+    }
+
+    public void deleteMaster (Master master) {
+        masterStore.delete(master);
+    }
     public void sortByNameOfMaster(ArrayList<Master> masters) {
         ArrayList<Master> mastersSorted = (ArrayList<Master>) masters.clone();
         Collections.sort(mastersSorted, comparatorByNameOfMaster);

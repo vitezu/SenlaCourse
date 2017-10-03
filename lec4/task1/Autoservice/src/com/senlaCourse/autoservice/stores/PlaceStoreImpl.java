@@ -17,11 +17,9 @@ public class PlaceStoreImpl {
             places.remove(place);
         }
     }
-
     public ArrayList<Place> getPlaces() {
         return places;
     }
-
     public void setPlaces(ArrayList<Place> places) {
         this.places = places;
     }

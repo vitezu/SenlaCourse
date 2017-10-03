@@ -20,11 +20,8 @@ import java.nio.file.Paths;
 
 public class Runner {
     public static void main(String[] args) throws Exception {
-        OrderStoreImpl orderStore = new OrderStoreImpl();
         OrderService orderService = new OrderService();
-        MasterStoreImpl masterStore = new MasterStoreImpl();
         MasterService masterService = new MasterService();
-        PlaceStoreImpl placeStore = new PlaceStoreImpl();
         PlaceService placeService = new PlaceService();
         DateUtil du = new DateUtil();
 
@@ -36,30 +33,28 @@ public class Runner {
         Place place1 = new Place(1, true);
         Place place2 = new Place(2, true);
 
-
-        orderStore.add(order1);
-        orderStore.add(order2);
-        orderStore.add(order3);
-        orderService.sortByPriceOfOrder(orderStore.getOrders());
-        orderService.sortByDateOfOrder(orderStore.getOrders());
-        orderService.sortByDateOfExecution(orderStore.getOrders());
-        orderService.sortByDateOfPlannedExecution(orderStore.getOrders());
+        orderService.addOrder(order1);
+        orderService.addOrder(order2);
+        orderService.addOrder(order3);
+        orderService.sortByPriceOfOrder();
+        orderService.sortByDateOfOrder();
+        orderService.sortByDateOfExecution();
+        orderService.sortByDateOfPlannedExecution();
         orderService.operateOrder(order1);
-        orderService.sortByPriceOfOperationOrder(orderStore.getOrders());
-        orderService.sortByDateOfOperationOrder(orderStore.getOrders());
+        orderService.sortByPriceOfOperationOrder();
+        orderService.sortByDateOfOperationOrder();
         orderService.operateOrder(order1);
         orderService.operateOrder(order2);
 
-
-        masterStore.add(master1);
-        masterStore.add(master2);
+        masterService.addMaster(master1);
+        masterService.addMaster(master2);
         masterService.sortByNameOfMaster(masterStore.getMasters());
         masterService.sortByStateFree(masterStore.getMasters());
 
         master1.setOrder(order1);
 
-        placeStore.add(place1);
-        placeStore.add(place2);
+        placeService.addPlace(place1);
+        placeService.addPlace(place1);
         placeService.calcFreePlaces(placeStore.getPlaces(), masterStore.getMasters());
         placeService.getFreePlaces(placeStore.getPlaces());
 
