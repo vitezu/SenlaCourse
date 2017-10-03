@@ -1,4 +1,4 @@
-package com.senlaCourse.autoservice.api;
+package com.senlaCourse.autoservice.api.story;
 
 import com.senlaCourse.autoservice.entity.Master;
 

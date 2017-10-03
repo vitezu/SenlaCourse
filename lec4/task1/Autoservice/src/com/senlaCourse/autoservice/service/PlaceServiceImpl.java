@@ -1,14 +1,13 @@
 package com.senlaCourse.autoservice.service;
 
-import com.senlaCourse.autoservice.api.IPlaceStore;
+import com.senlaCourse.autoservice.api.service.IPlaceService;
 import com.senlaCourse.autoservice.entity.Master;
 import com.senlaCourse.autoservice.entity.Place;
 import com.senlaCourse.autoservice.stores.PlaceStoreImpl;
 import com.senlaCourse.autoservice.util.Printer;
-
 import java.util.List;
 
-public class PlaceService {
+public class PlaceServiceImpl implements IPlaceService {
 
     private final String MESSAGE1 = "Calculate free places in future";
     private final String MESSAGE2 = "Num of free places";
@@ -16,16 +15,18 @@ public class PlaceService {
 
     Printer printer = new Printer();
 
-    public void addPlace (Place place) {
+    @Override
+    public void addPlace(Place place) {
         placeStore.add(place);
     }
 
-    public void deletePlace (Place place) {
+    @Override
+    public void deletePlace(Place place) {
         placeStore.delete(place);
     }
 
-
-    public void calcFreePlaces(List<Place> places, List<Master> masters)  {
+    @Override
+    public void calcFreePlaces(List<Place> places, List<Master> masters) {
         printer.printLineEmpty();
         printer.printMessage(MESSAGE1);
         int countFreePlace = 0;
@@ -41,8 +42,10 @@ public class PlaceService {
                 countFreeMaster++;
             }
         }
-        printer.printObject((countFreePlace + countFreeMaster)/ 2);
+        printer.printObject((countFreePlace + countFreeMaster) / 2);
     }
+
+    @Override
     public void getFreePlaces(List<Place> places) {
         System.out.println();
         System.out.println(MESSAGE2);

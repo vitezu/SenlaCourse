@@ -1,4 +1,4 @@
-package com.senlaCourse.autoservice.api;
+package com.senlaCourse.autoservice.api.story;
 
 public interface IGeneric <T> {
     void delete(T t);

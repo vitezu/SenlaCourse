@@ -1,6 +1,6 @@
 package com.senlaCourse.autoservice.stores;
 
-import com.senlaCourse.autoservice.api.IOrderStore;
+import com.senlaCourse.autoservice.api.story.IOrderStore;
 import com.senlaCourse.autoservice.entity.Order;
 import com.senlaCourse.autoservice.entity.StateOrder;
 

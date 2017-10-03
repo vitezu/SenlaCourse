@@ -1,28 +1,15 @@
 package com.senlaCourse.autoservice.runner;
 
-
-
-import com.danco.training.TextFileWorker;
+import com.senlaCourse.autoservice.api.controller.IController;
+import com.senlaCourse.autoservice.controller.ControllerImpl;
 import com.senlaCourse.autoservice.entity.Master;
 import com.senlaCourse.autoservice.entity.Order;
 import com.senlaCourse.autoservice.entity.Place;
-import com.senlaCourse.autoservice.service.MasterService;
-import com.senlaCourse.autoservice.service.OrderService;
-import com.senlaCourse.autoservice.service.PlaceService;
-import com.senlaCourse.autoservice.stores.MasterStoreImpl;
-import com.senlaCourse.autoservice.stores.OrderStoreImpl;
-import com.senlaCourse.autoservice.stores.PlaceStoreImpl;
 import com.senlaCourse.autoservice.util.DateUtil;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class Runner {
     public static void main(String[] args) throws Exception {
-        OrderService orderService = new OrderService();
-        MasterService masterService = new MasterService();
-        PlaceService placeService = new PlaceService();
+        IController controller = new ControllerImpl();
         DateUtil du = new DateUtil();
 
         Order order1 = new Order(1, du.create("01/10/2017"), null, 50.0f);
@@ -33,74 +20,30 @@ public class Runner {
         Place place1 = new Place(1, true);
         Place place2 = new Place(2, true);
 
-        orderService.addOrder(order1);
-        orderService.addOrder(order2);
-        orderService.addOrder(order3);
-        orderService.sortByPriceOfOrder();
-        orderService.sortByDateOfOrder();
-        orderService.sortByDateOfExecution();
-        orderService.sortByDateOfPlannedExecution();
-        orderService.operateOrder(order1);
-        orderService.sortByPriceOfOperationOrder();
-        orderService.sortByDateOfOperationOrder();
-        orderService.operateOrder(order1);
-        orderService.operateOrder(order2);
-
-        masterService.addMaster(master1);
-        masterService.addMaster(master2);
-        masterService.sortByNameOfMaster(masterStore.getMasters());
-        masterService.sortByStateFree(masterStore.getMasters());
-
+        controller.addPlace(place1);
+        controller.addPlace(place2);
+        controller.addOrder(order1);
+        controller.addOrder(order2);
+        controller.addOrder(order3);
+        controller.sortByPriceOfOrder();
+        controller.sortByDateOfOrder();
+        controller.sortByDateOfExecution();
+        controller.sortByDateOfPlannedExecution();
+        controller.operateOrder(order1);
+        controller.sortByPriceOfOperationOrder();
+        controller.sortByDateOfOperationOrder();
+        controller.operateOrder(order1);
+        controller.operateOrder(order2);
+        controller.addMaster(master1);
+        controller.addMaster(master2);
+        controller.sortByNameOfMaster();
+        controller.sortByStateFree();
         master1.setOrder(order1);
 
-        placeService.addPlace(place1);
-        placeService.addPlace(place1);
-        placeService.calcFreePlaces(placeStore.getPlaces(), masterStore.getMasters());
-        placeService.getFreePlaces(placeStore.getPlaces());
 
-        String[] arrayPlaces = new String[placeStore.getPlaces().size()];
-        for (int i = 0; i < placeStore.getPlaces().size(); i++) {
-            arrayPlaces[i] = String.valueOf(placeStore.getPlaces().get(i));
-        }
+//        controller.calcFreePlaces();
+//        controller.getFreePlaces();
 
-        String[] arrayMasters = new String[masterStore.getMasters().size()];
-        for (int i = 0; i < masterStore.getMasters().size(); i++) {
-            arrayMasters[i] = String.valueOf(masterStore.getMasters().get(i));
-        }
 
-        String[] arrayOrders = new String[orderStore.getOrders().size()];
-        for (int i = 0; i < orderStore.getOrders().size(); i++) {
-            arrayOrders[i] = String.valueOf(orderStore.getOrders().get(i));
-        }
-
-        //Test write/rea file
-        final String TEST_FILE = args[0];
-        final String[] testValues = arrayOrders;
-
-        // Create new file
-        Path filePath = Paths.get(TEST_FILE);
-        if (!Files.exists(filePath)){
-            Files.createFile(filePath);
-        }
-
-        // Work example
-        try {
-            TextFileWorker fileWorker = new TextFileWorker(TEST_FILE);
-            fileWorker.writeToFile(testValues);
-            Object[] readedValues = fileWorker.readFromFile();
-            for (Object s : readedValues) {
-                System.out.println(s);
-            }
-
-            // Check result
-            for (int i = 0; i < testValues.length; i++) {
-
-                if (!readedValues[i].equals(testValues[i])) {
-                    throw new RuntimeException("Error. Not equal values: " + readedValues[i] + " and " + testValues[i]);
-                }
-            }
-        } finally {
-//            Files.deleteIfExists(filePath);
-        }
     }
 }

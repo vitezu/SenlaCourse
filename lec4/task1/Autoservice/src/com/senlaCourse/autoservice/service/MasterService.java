@@ -1,8 +1,6 @@
 package com.senlaCourse.autoservice.service;
 
-import com.senlaCourse.autoservice.api.IMasterStore;
 import com.senlaCourse.autoservice.entity.Master;
-import com.senlaCourse.autoservice.entity.Order;
 import com.senlaCourse.autoservice.service.comparators.master.ComparatorByNameOfMaster;
 import com.senlaCourse.autoservice.service.comparators.master.ComparatorByStateOfMaster;
 import com.senlaCourse.autoservice.stores.MasterStoreImpl;

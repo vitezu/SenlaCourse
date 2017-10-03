@@ -1,5 +1,6 @@
 package com.senlaCourse.autoservice.service;
 
+import com.senlaCourse.autoservice.api.service.IOrderService;
 import com.senlaCourse.autoservice.entity.Order;
 import com.senlaCourse.autoservice.entity.StateOrder;
 import com.senlaCourse.autoservice.service.comparators.order.ComparatorByDateOfExecution;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class OrderService {
+public class OrderServiceImpl implements IOrderService {
     private final String MESSAGE1 = "Sorted by date of order";
     private final String MESSAGE2 = "Sorted by price of order";
     private final String MESSAGE3 = "Sorted by date of planned execution order";
