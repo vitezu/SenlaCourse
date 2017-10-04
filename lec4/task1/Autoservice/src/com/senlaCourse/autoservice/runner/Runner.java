@@ -40,6 +40,11 @@ public class Runner {
         controller.sortByStateFree();
         master1.setOrder(order1);
 
+//        System.out.println(controller.getPlaceService().getplaceStore().getPlaces());
+//
+//        controller.deletePlace(place2);
+//        System.out.println(controller.getPlaceService().getplaceStore().getPlaces());
+
 
 //        controller.calcFreePlaces();
 //        controller.getFreePlaces();

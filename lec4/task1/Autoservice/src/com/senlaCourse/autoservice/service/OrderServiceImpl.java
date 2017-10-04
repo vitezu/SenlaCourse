@@ -1,6 +1,7 @@
 package com.senlaCourse.autoservice.service;
 
 import com.senlaCourse.autoservice.api.service.IOrderService;
+import com.senlaCourse.autoservice.api.story.IOrderStore;
 import com.senlaCourse.autoservice.entity.Order;
 import com.senlaCourse.autoservice.entity.StateOrder;
 import com.senlaCourse.autoservice.service.comparators.order.ComparatorByDateOfExecution;
@@ -27,19 +28,22 @@ public class OrderServiceImpl implements IOrderService {
     private final ComparatorByDateOfPlannedExecution comparatorByDateOfPlannedExecution = new ComparatorByDateOfPlannedExecution();
     private final ComparatorByDateOfExecution comparatorByDateOfExecution = new ComparatorByDateOfExecution();
     private Printer printer = new Printer();
-    private OrderStoreImpl orderStore = new OrderStoreImpl();
+    private IOrderStore orderStore = new OrderStoreImpl();
 
+    @Override
     public void addOrder (Order order) {
         orderStore.add(order);
     }
 
+    @Override
     public void deleteOrder (Order order) {
         orderStore.delete(order);
         order.setStateOrder(StateOrder.DELETED);
     }
 
+    @Override
     public void sortByDateOfOrder() {
-        List<Order> ordersSorted = (ArrayList<Order>) orderStore.getOrders().clone();
+        List<Order> ordersSorted =  orderStore.getAll();
         Collections.sort(ordersSorted, comparatorByDateOfOrder);
         printer.printLineEmpty();
         printer.printMessage(MESSAGE1);
@@ -47,8 +51,9 @@ public class OrderServiceImpl implements IOrderService {
             printer.printObject(order);
     }
 
+    @Override
     public void sortByPriceOfOrder() {
-        List<Order> ordersSorted = (ArrayList<Order>) orderStore.getOrders().clone();
+        List<Order> ordersSorted = (ArrayList<Order>) orderStore.getAll();
         printer.printLineEmpty();
         Collections.sort(ordersSorted, comparatorByPriceOfOrder);
         printer.printMessage(MESSAGE2);
@@ -56,8 +61,9 @@ public class OrderServiceImpl implements IOrderService {
             printer.printObject(order);
     }
 
+    @Override
     public void sortByDateOfPlannedExecution() {
-        ArrayList<Order> ordersSorted = (ArrayList<Order>) orderStore.getOrders().clone();
+        ArrayList<Order> ordersSorted = (ArrayList<Order>) orderStore.getAll();
         printer.printLineEmpty();
         Collections.sort(ordersSorted, comparatorByDateOfPlannedExecution);
         printer.printMessage(MESSAGE3);
@@ -65,8 +71,9 @@ public class OrderServiceImpl implements IOrderService {
             printer.printObject(order);
     }
 
+    @Override
     public void sortByDateOfExecution() {
-        ArrayList<Order> ordersSorted = (ArrayList<Order>) orderStore.getOrders().clone();
+        ArrayList<Order> ordersSorted = (ArrayList<Order>) orderStore.getAll();
         printer.printLineEmpty();
         Collections.sort(ordersSorted, comparatorByDateOfExecution);
         printer.printMessage(MESSAGE4);
@@ -74,8 +81,9 @@ public class OrderServiceImpl implements IOrderService {
             printer.printObject(order);
     }
 
+    @Override
     public void sortByPriceOfOperationOrder() {
-        ArrayList<Order> ordersSorted = (ArrayList<Order>) orderStore.getOrders().clone();
+        ArrayList<Order> ordersSorted = (ArrayList<Order>) orderStore.getAll();
         printer.printLineEmpty();
         Collections.sort(ordersSorted, comparatorByPriceOfOrder);
         printer.printMessage(MESSAGE5);
@@ -85,8 +93,9 @@ public class OrderServiceImpl implements IOrderService {
         }
     }
 
+    @Override
     public void sortByDateOfOperationOrder() {
-        ArrayList<Order> ordersSorted = (ArrayList<Order>) orderStore.getOrders().clone();
+        ArrayList<Order> ordersSorted = (ArrayList<Order>) orderStore.getAll();
         printer.printLineEmpty();
         Collections.sort(ordersSorted, comparatorByDateOfOrder);
         printer.printMessage(MESSAGE6);
@@ -96,14 +105,17 @@ public class OrderServiceImpl implements IOrderService {
         }
     }
 
+    @Override
     public void canceleOrder(Order order) {
         order.setStateOrder(StateOrder.CANCELED);
     }
 
+    @Override
     public void closeOrder(Order order) {
         order.setStateOrder(StateOrder.COMPLETED);
     }
 
+    @Override
     public void operateOrder(Order order) {
         order.setStateOrder(StateOrder.OPERATING);
     }

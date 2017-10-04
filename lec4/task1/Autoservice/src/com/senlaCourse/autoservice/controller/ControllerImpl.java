@@ -1,10 +1,14 @@
 package com.senlaCourse.autoservice.controller;
 
 import com.senlaCourse.autoservice.api.controller.IController;
+import com.senlaCourse.autoservice.api.service.IMasterService;
+import com.senlaCourse.autoservice.api.service.IOrderService;
 import com.senlaCourse.autoservice.api.service.IPlaceService;
 import com.senlaCourse.autoservice.entity.Master;
 import com.senlaCourse.autoservice.entity.Order;
 import com.senlaCourse.autoservice.entity.Place;
+import com.senlaCourse.autoservice.service.MasterServiceImpl;
+import com.senlaCourse.autoservice.service.OrderServiceImpl;
 import com.senlaCourse.autoservice.service.PlaceServiceImpl;
 
 import java.util.List;
@@ -12,6 +16,8 @@ import java.util.List;
 public class ControllerImpl implements IController {
 
     private IPlaceService placeService = new PlaceServiceImpl();
+    private IMasterService masterService = new MasterServiceImpl();
+    private IOrderService orderService = new OrderServiceImpl();
 
     @Override
     public void addPlace(Place place) {
@@ -35,7 +41,7 @@ public class ControllerImpl implements IController {
 
     @Override
     public void addOrder(Order order) {
-
+        orderService.addOrder(order);
     }
 
     @Override
@@ -50,6 +56,7 @@ public class ControllerImpl implements IController {
 
     @Override
     public void sortByPriceOfOrder() {
+        orderService.sortByPriceOfOrder();
 
     }
 

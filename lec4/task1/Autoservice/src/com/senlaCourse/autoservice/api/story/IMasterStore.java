@@ -2,6 +2,8 @@ package com.senlaCourse.autoservice.api.story;
 
 import com.senlaCourse.autoservice.entity.Master;
 
+import java.util.List;
+
 public interface IMasterStore extends IGeneric<Master>  {
 
 
@@ -10,4 +12,7 @@ public interface IMasterStore extends IGeneric<Master>  {
 
     @Override
     void add(Master master);
+
+    @Override
+    List<Master> getAll();
 }

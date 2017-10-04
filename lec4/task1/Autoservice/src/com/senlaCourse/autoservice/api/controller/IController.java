@@ -1,5 +1,6 @@
 package com.senlaCourse.autoservice.api.controller;
 
+import com.senlaCourse.autoservice.api.service.IPlaceService;
 import com.senlaCourse.autoservice.entity.Master;
 import com.senlaCourse.autoservice.entity.Order;
 import com.senlaCourse.autoservice.entity.Place;
@@ -48,4 +49,5 @@ public interface IController {
 
     void sortByStateFree();
 
+    IPlaceService getPlaceService ();
 }

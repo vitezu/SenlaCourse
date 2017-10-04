@@ -56,4 +56,9 @@ public class PlaceServiceImpl implements IPlaceService {
         }
     }
 
+    @Override
+    public PlaceStoreImpl getplaceStore () {
+        return placeStore;
+    }
+
 }

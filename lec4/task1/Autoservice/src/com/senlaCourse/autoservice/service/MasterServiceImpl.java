@@ -1,5 +1,7 @@
 package com.senlaCourse.autoservice.service;
 
+import com.senlaCourse.autoservice.api.service.IMasterService;
+import com.senlaCourse.autoservice.api.story.IMasterStore;
 import com.senlaCourse.autoservice.entity.Master;
 import com.senlaCourse.autoservice.service.comparators.master.ComparatorByNameOfMaster;
 import com.senlaCourse.autoservice.service.comparators.master.ComparatorByStateOfMaster;
@@ -8,14 +10,15 @@ import com.senlaCourse.autoservice.util.Printer;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
-public class MasterService {
+public class MasterServiceImpl implements IMasterService {
     Printer printer = new Printer();
     ComparatorByNameOfMaster comparatorByNameOfMaster = new ComparatorByNameOfMaster();
     ComparatorByStateOfMaster comparatorByStateOfMaster = new ComparatorByStateOfMaster();
     private final String MESSAGE1 = "Sorted by name of master";
     private final String MESSAGE2 = "Sorted by state free of master";
-    private MasterStoreImpl masterStore = new MasterStoreImpl();
+    private IMasterStore masterStore = new MasterStoreImpl();
 
 
     public void addMaster(Master master) {
@@ -26,7 +29,7 @@ public class MasterService {
         masterStore.delete(master);
     }
     public void sortByNameOfMaster(ArrayList<Master> masters) {
-        ArrayList<Master> mastersSorted = (ArrayList<Master>) masters.clone();
+        List<Master> mastersSorted = (ArrayList<Master>) masters.clone();
         Collections.sort(mastersSorted, comparatorByNameOfMaster);
         printer.printLineEmpty();
         printer.printMessage(MESSAGE1);
@@ -34,7 +37,7 @@ public class MasterService {
             printer.printObject(master);
     }
     public void sortByStateFree (ArrayList<Master> masters)  {
-        ArrayList<Master> mastersSorted = (ArrayList<Master>) masters.clone();
+        List<Master> mastersSorted = (List<Master>) masters.clone();
         Collections.sort(mastersSorted, comparatorByStateOfMaster);
         printer.printLineEmpty();
         printer.printMessage(MESSAGE2);
