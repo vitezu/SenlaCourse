@@ -9,39 +9,48 @@ import com.senlaCourse.autoservice.stores.MasterStoreImpl;
 import com.senlaCourse.autoservice.util.Printer;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class MasterServiceImpl implements IMasterService {
-    Printer printer = new Printer();
-    ComparatorByNameOfMaster comparatorByNameOfMaster = new ComparatorByNameOfMaster();
-    ComparatorByStateOfMaster comparatorByStateOfMaster = new ComparatorByStateOfMaster();
+    private Printer printer = new Printer();
+    private final ComparatorByNameOfMaster comparatorByNameOfMaster = new ComparatorByNameOfMaster();
+    private final ComparatorByStateOfMaster comparatorByStateOfMaster = new ComparatorByStateOfMaster();
     private final String MESSAGE1 = "Sorted by name of master";
     private final String MESSAGE2 = "Sorted by state free of master";
     private IMasterStore masterStore = new MasterStoreImpl();
 
-
+    @Override
     public void addMaster(Master master) {
         masterStore.add(master);
     }
 
-    public void deleteMaster (Master master) {
+    @Override
+    public void deleteMaster(Master master) {
         masterStore.delete(master);
     }
-    public void sortByNameOfMaster(ArrayList<Master> masters) {
-        List<Master> mastersSorted = (ArrayList<Master>) masters.clone();
-        Collections.sort(mastersSorted, comparatorByNameOfMaster);
+
+    @Override
+    public void sortByNameOfMaster() {
+        List<Master> mastersSorted = new ArrayList<>(masterStore.getAll());
+        mastersSorted.sort(comparatorByNameOfMaster);
         printer.printLineEmpty();
         printer.printMessage(MESSAGE1);
         for (Master master : mastersSorted)
             printer.printObject(master);
     }
-    public void sortByStateFree (ArrayList<Master> masters)  {
-        List<Master> mastersSorted = (List<Master>) masters.clone();
-        Collections.sort(mastersSorted, comparatorByStateOfMaster);
+
+    @Override
+    public void sortByStateFree() {
+        List<Master> mastersSorted = new ArrayList<>(masterStore.getAll());
+        mastersSorted.sort(comparatorByStateOfMaster);
         printer.printLineEmpty();
         printer.printMessage(MESSAGE2);
         for (Master master : mastersSorted)
             printer.printObject(master);
+    }
+
+    @Override
+    public List<Master> getMasterStore() {
+        return masterStore.getAll();
     }
 }

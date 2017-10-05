@@ -2,6 +2,8 @@ package com.senlaCourse.autoservice.api.service;
 
 import com.senlaCourse.autoservice.entity.Order;
 
+import java.util.List;
+
 public interface IOrderService {
 
     void addOrder (Order order);
@@ -25,4 +27,6 @@ public interface IOrderService {
     void closeOrder(Order order);
 
     void operateOrder(Order order);
+
+    List<Order> getOrderStore ();
 }

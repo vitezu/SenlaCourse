@@ -2,7 +2,6 @@ package com.senlaCourse.autoservice.api.service;
 
 import com.senlaCourse.autoservice.entity.Master;
 import com.senlaCourse.autoservice.entity.Place;
-import com.senlaCourse.autoservice.stores.PlaceStoreImpl;
 
 import java.util.List;
 
@@ -16,5 +15,5 @@ public interface IPlaceService {
 
     void getFreePlaces(List<Place> places);
 
-    PlaceStoreImpl getplaceStore ();
+    List<Place> getPlaceStore ();
 }

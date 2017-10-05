@@ -5,6 +5,7 @@ import com.senlaCourse.autoservice.entity.Master;
 import com.senlaCourse.autoservice.entity.Place;
 import com.senlaCourse.autoservice.stores.PlaceStoreImpl;
 import com.senlaCourse.autoservice.util.Printer;
+
 import java.util.List;
 
 public class PlaceServiceImpl implements IPlaceService {
@@ -57,8 +58,8 @@ public class PlaceServiceImpl implements IPlaceService {
     }
 
     @Override
-    public PlaceStoreImpl getplaceStore () {
-        return placeStore;
+    public List<Place> getPlaceStore() {
+        return placeStore.getAll();
     }
 
 }

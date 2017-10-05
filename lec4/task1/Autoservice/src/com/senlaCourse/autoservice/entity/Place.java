@@ -1,8 +1,8 @@
 package com.senlaCourse.autoservice.entity;
 
 public class Place {
-private Integer numPlace;
-private Boolean stateFree = true;
+    private Integer numPlace;
+    private Boolean stateFree = true;
 
     public Place(Integer numPlace, Boolean stateFree) {
         this.numPlace = numPlace;

@@ -29,8 +29,4 @@ public class PlaceStoreImpl implements IPlaceStore {
         }
     }
 
-    public void setPlaces(ArrayList<Place> places) {
-        this.places = places;
-    }
-
 }

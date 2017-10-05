@@ -27,22 +27,19 @@ public class OrderStoreImpl implements IOrderStore {
     }
 
     @Override
-    public void canceleOrder (Order order) {
+    public void canceleOrder(Order order) {
         order.setStateOrder(StateOrder.CANCELED);
     }
 
     @Override
-    public void deleteOrder (Order order) {
+    public void deleteOrder(Order order) {
         order.setStateOrder(StateOrder.DELETED);
     }
 
     @Override
-    public void closeOrder (Order order) {
+    public void closeOrder(Order order) {
         order.setStateOrder(StateOrder.COMPLETED);
     }
 
-    public void setOrders(ArrayList<Order> orders) {
-        this.orders = orders;
-    }
 }
 

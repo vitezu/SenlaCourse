@@ -10,7 +10,7 @@ public class Order {
     private Date dateOfPlaningEnd;
     private Float price;
 
-    public  Order(Integer num, Date dateOfOrder, Date dateOfPlaningEnd, Float price) {
+    public Order(Integer num, Date dateOfOrder, Date dateOfPlaningEnd, Float price) {
         this.num = num;
         this.dateOfOrder = dateOfOrder;
         this.dateOfPlaningEnd = dateOfPlaningEnd;

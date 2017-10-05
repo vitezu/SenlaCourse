@@ -1,12 +1,11 @@
 package com.senlaCourse.autoservice.api.controller;
 
+import com.senlaCourse.autoservice.api.service.IMasterService;
 import com.senlaCourse.autoservice.api.service.IPlaceService;
 import com.senlaCourse.autoservice.entity.Master;
 import com.senlaCourse.autoservice.entity.Order;
 import com.senlaCourse.autoservice.entity.Place;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public interface IController {
@@ -49,5 +48,15 @@ public interface IController {
 
     void sortByStateFree();
 
-    IPlaceService getPlaceService ();
+    List<Place> getAllPlaces();
+
+    List<Order> getAllOrders ();
+
+    List<Master> getAllMasters();
+
+    String[] convertInArrayOfPlaces ();
+
+    String[] convertInArrayOfOrders ();
+
+    String[] convertInArrayOfMasters ();
 }

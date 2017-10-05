@@ -25,7 +25,4 @@ public class MasterStoreImpl implements IMasterStore {
         return masters;
     }
 
-    public void setMasters(ArrayList<Master> masters) {
-        this.masters = masters;
-    }
 }
