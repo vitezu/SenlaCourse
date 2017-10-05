@@ -6,6 +6,7 @@ import com.senlaCourse.autoservice.entity.Master;
 import com.senlaCourse.autoservice.entity.Order;
 import com.senlaCourse.autoservice.entity.Place;
 
+import java.util.Date;
 import java.util.List;
 
 public interface IController {
@@ -16,7 +17,7 @@ public interface IController {
 
     void calcFreePlaces(List<Place> places, List<Master> masters);
 
-    void getFreePlaces(List<Place> places);
+    void getFreePlaces();
 
     void addOrder (Order order);
 
@@ -34,9 +35,11 @@ public interface IController {
 
     void sortByDateOfOperationOrder();
 
+    void sortByDateOfExecutionOperationOrder();
+
     void canceleOrder(Order order);
 
-    void closeOrder(Order order);
+    void closeOrder(Order order, Date date);
 
     void operateOrder(Order order);
 

@@ -2,6 +2,7 @@ package com.senlaCourse.autoservice.api.service;
 
 import com.senlaCourse.autoservice.entity.Order;
 
+import java.util.Date;
 import java.util.List;
 
 public interface IOrderService {
@@ -22,9 +23,11 @@ public interface IOrderService {
 
     void sortByDateOfOperationOrder();
 
+    void sortByDateOfExecutionOperationOrder();
+
     void canceleOrder(Order order);
 
-    void closeOrder(Order order);
+    void closeOrder(Order order, Date date);
 
     void operateOrder(Order order);
 

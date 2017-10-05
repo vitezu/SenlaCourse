@@ -1,4 +1,4 @@
-package com.senlaCourse.autoservice.service.comparators.master;
+package com.senlaCourse.autoservice.util.comparators.master;
 
 import com.senlaCourse.autoservice.entity.Master;
 

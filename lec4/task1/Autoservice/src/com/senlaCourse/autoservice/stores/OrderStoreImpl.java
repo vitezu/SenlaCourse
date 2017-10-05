@@ -2,7 +2,7 @@ package com.senlaCourse.autoservice.stores;
 
 import com.senlaCourse.autoservice.api.story.IOrderStore;
 import com.senlaCourse.autoservice.entity.Order;
-import com.senlaCourse.autoservice.entity.StateOrder;
+import com.senlaCourse.autoservice.util.StateOrder;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -28,5 +28,4 @@ public class PlaceStoreImpl implements IPlaceStore {
             places.remove(place);
         }
     }
-
 }

@@ -1,4 +1,4 @@
-package com.senlaCourse.autoservice.service.comparators.order;
+package com.senlaCourse.autoservice.util.comparators.order;
 
 import com.senlaCourse.autoservice.entity.Order;
 

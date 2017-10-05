@@ -1,19 +1,21 @@
 package com.senlaCourse.autoservice.entity;
 
+import com.senlaCourse.autoservice.util.StateOrder;
+
 import java.util.Date;
 
 public class Order {
     private Integer num;
     private StateOrder stateOrder;
     private Date dateOfOrder;
-    private Date dateOfEnd;
-    private Date dateOfPlaningEnd;
+    private Date dateOfExecution;
+    private Date dateOfPlaningExecution;
     private Float price;
 
-    public Order(Integer num, Date dateOfOrder, Date dateOfPlaningEnd, Float price) {
+    public Order(Integer num, Date dateOfOrder, Date dateOfPlaningExecution, Float price) {
         this.num = num;
         this.dateOfOrder = dateOfOrder;
-        this.dateOfPlaningEnd = dateOfPlaningEnd;
+        this.dateOfPlaningExecution = dateOfPlaningExecution;
         this.price = price;
     }
 
@@ -42,19 +44,19 @@ public class Order {
     }
 
     public Date getDateOfEnd() {
-        return dateOfEnd;
+        return dateOfExecution;
     }
 
-    public void setDateOfEnd(Date dateOfEnd) {
-        this.dateOfEnd = dateOfEnd;
+    public void setDateOfExecution(Date dateOfExecution) {
+        this.dateOfExecution = dateOfExecution;
     }
 
     public Date getDateOfPlaningEnd() {
-        return dateOfPlaningEnd;
+        return dateOfPlaningExecution;
     }
 
-    public void setDateOfPlaningEnd(Date dateOfPlaningEnd) {
-        this.dateOfPlaningEnd = dateOfPlaningEnd;
+    public void setDateOfPlaningEnd(Date dateOfPlaningExecution) {
+        this.dateOfPlaningExecution = dateOfPlaningExecution;
     }
 
     public Float getPrice() {
@@ -71,8 +73,8 @@ public class Order {
         sb.append("num=").append(num);
         sb.append(", stateOrder=").append(stateOrder);
         sb.append(", dateOfOrder=").append(dateOfOrder);
-        sb.append(", dateOfEnd=").append(dateOfEnd);
-        sb.append(", dateOfPlaningEnd=").append(dateOfPlaningEnd);
+        sb.append(", dateOfExecution=").append(dateOfExecution);
+        sb.append(", dateOfPlaningExecution=").append(dateOfPlaningExecution);
         sb.append(", price=").append(price);
         sb.append('}');
         return sb.toString();

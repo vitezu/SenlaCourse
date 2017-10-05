@@ -11,6 +11,7 @@ import com.senlaCourse.autoservice.service.MasterServiceImpl;
 import com.senlaCourse.autoservice.service.OrderServiceImpl;
 import com.senlaCourse.autoservice.service.PlaceServiceImpl;
 
+import java.util.Date;
 import java.util.List;
 
 public class ControllerImpl implements IController {
@@ -35,8 +36,8 @@ public class ControllerImpl implements IController {
     }
 
     @Override
-    public void getFreePlaces(List<Place> places) {
-        placeService.getFreePlaces(places);
+    public void getFreePlaces() {
+        placeService.getFreePlaces();
     }
 
     @Override
@@ -57,7 +58,6 @@ public class ControllerImpl implements IController {
     @Override
     public void sortByPriceOfOrder() {
         orderService.sortByPriceOfOrder();
-
     }
 
     @Override
@@ -81,13 +81,18 @@ public class ControllerImpl implements IController {
     }
 
     @Override
+    public void sortByDateOfExecutionOperationOrder() {
+        orderService.sortByDateOfExecutionOperationOrder();
+    }
+
+    @Override
     public void canceleOrder(Order order) {
         orderService.canceleOrder(order);
     }
 
     @Override
-    public void closeOrder(Order order) {
-        orderService.closeOrder(order);
+    public void closeOrder(Order order, Date date) {
+        orderService.closeOrder(order, date);
 
     }
 
@@ -156,4 +161,5 @@ public class ControllerImpl implements IController {
         }
         return arrayMasters;
     }
+
 }

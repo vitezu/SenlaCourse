@@ -13,7 +13,7 @@ public interface IPlaceService {
 
     void calcFreePlaces(List<Place> places, List<Master> masters);
 
-    void getFreePlaces(List<Place> places);
+    void getFreePlaces();
 
     List<Place> getPlaceStore ();
 }

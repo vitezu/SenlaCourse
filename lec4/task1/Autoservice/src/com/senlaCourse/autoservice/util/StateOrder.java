@@ -1,4 +1,4 @@
-package com.senlaCourse.autoservice.entity;
+package com.senlaCourse.autoservice.util;
 
 public enum StateOrder {
     OPERATING,

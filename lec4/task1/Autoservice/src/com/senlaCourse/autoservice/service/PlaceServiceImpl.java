@@ -11,7 +11,7 @@ import java.util.List;
 public class PlaceServiceImpl implements IPlaceService {
 
     private final String MESSAGE1 = "Calculate free places in future";
-    private final String MESSAGE2 = "Num of free places";
+    private final String MESSAGE2 = "Free places";
     private PlaceStoreImpl placeStore = new PlaceStoreImpl();
 
     Printer printer = new Printer();
@@ -28,7 +28,6 @@ public class PlaceServiceImpl implements IPlaceService {
 
     @Override
     public void calcFreePlaces(List<Place> places, List<Master> masters) {
-        printer.printLineEmpty();
         printer.printMessage(MESSAGE1);
         int countFreePlace = 0;
         int countFreeMaster = 0;
@@ -47,14 +46,13 @@ public class PlaceServiceImpl implements IPlaceService {
     }
 
     @Override
-    public void getFreePlaces(List<Place> places) {
-        System.out.println();
-        System.out.println(MESSAGE2);
-        for (Place place : places) {
-            if (place.getStateFree() == true) {
-                System.out.println(place);
+    public void getFreePlaces() {
+        printer.printMessage(MESSAGE2);
+            for (Place place : getPlaceStore()) {
+                if (place.getStateFree()) {
+                    printer.printObject(place);
+                }
             }
-        }
     }
 
     @Override

@@ -3,8 +3,8 @@ package com.senlaCourse.autoservice.service;
 import com.senlaCourse.autoservice.api.service.IMasterService;
 import com.senlaCourse.autoservice.api.story.IMasterStore;
 import com.senlaCourse.autoservice.entity.Master;
-import com.senlaCourse.autoservice.service.comparators.master.ComparatorByNameOfMaster;
-import com.senlaCourse.autoservice.service.comparators.master.ComparatorByStateOfMaster;
+import com.senlaCourse.autoservice.util.comparators.master.ComparatorByNameOfMaster;
+import com.senlaCourse.autoservice.util.comparators.master.ComparatorByStateOfMaster;
 import com.senlaCourse.autoservice.stores.MasterStoreImpl;
 import com.senlaCourse.autoservice.util.Printer;
 
@@ -33,7 +33,6 @@ public class MasterServiceImpl implements IMasterService {
     public void sortByNameOfMaster() {
         List<Master> mastersSorted = new ArrayList<>(masterStore.getAll());
         mastersSorted.sort(comparatorByNameOfMaster);
-        printer.printLineEmpty();
         printer.printMessage(MESSAGE1);
         for (Master master : mastersSorted)
             printer.printObject(master);
@@ -43,7 +42,6 @@ public class MasterServiceImpl implements IMasterService {
     public void sortByStateFree() {
         List<Master> mastersSorted = new ArrayList<>(masterStore.getAll());
         mastersSorted.sort(comparatorByStateOfMaster);
-        printer.printLineEmpty();
         printer.printMessage(MESSAGE2);
         for (Master master : mastersSorted)
             printer.printObject(master);
