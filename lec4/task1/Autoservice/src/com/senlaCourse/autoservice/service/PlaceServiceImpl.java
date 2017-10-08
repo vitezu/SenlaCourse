@@ -6,6 +6,7 @@ import com.senlaCourse.autoservice.entity.Place;
 import com.senlaCourse.autoservice.stores.PlaceStoreImpl;
 import com.senlaCourse.autoservice.util.Printer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlaceServiceImpl implements IPlaceService {
@@ -46,13 +47,16 @@ public class PlaceServiceImpl implements IPlaceService {
     }
 
     @Override
-    public void getFreePlaces() {
-        printer.printMessage(MESSAGE2);
-            for (Place place : getPlaceStore()) {
-                if (place.getStateFree()) {
-                    printer.printObject(place);
-                }
+    public List<Place> getFreePlaces() {
+        List<Place> places = new ArrayList<Place>();
+//        printer.printMessage(MESSAGE2);
+        for (Place place : getPlaceStore()) {
+            if (place.getStateFree()) {
+                places.add(place);
+//                printer.printObject(place);
             }
+        }
+        return places;
     }
 
     @Override

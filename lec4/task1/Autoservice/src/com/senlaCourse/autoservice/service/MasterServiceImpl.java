@@ -9,6 +9,7 @@ import com.senlaCourse.autoservice.stores.MasterStoreImpl;
 import com.senlaCourse.autoservice.util.Printer;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class MasterServiceImpl implements IMasterService {
@@ -29,20 +30,24 @@ public class MasterServiceImpl implements IMasterService {
         masterStore.delete(master);
     }
 
+    public List<Master> sortMaster(Comparator comparator, String mesage) {
+        List<Master> mastersSorted = new ArrayList<>(masterStore.getAll());
+        mastersSorted.sort(comparator);
+        printer.printMessage(mesage);
+        return mastersSorted;
+    }
+
     @Override
     public void sortByNameOfMaster() {
-        List<Master> mastersSorted = new ArrayList<>(masterStore.getAll());
-        mastersSorted.sort(comparatorByNameOfMaster);
-        printer.printMessage(MESSAGE1);
+        List<Master> mastersSorted = sortMaster(comparatorByNameOfMaster, MESSAGE1);
         for (Master master : mastersSorted)
             printer.printObject(master);
     }
 
+
     @Override
     public void sortByStateFree() {
-        List<Master> mastersSorted = new ArrayList<>(masterStore.getAll());
-        mastersSorted.sort(comparatorByStateOfMaster);
-        printer.printMessage(MESSAGE2);
+        List<Master> mastersSorted = sortMaster(comparatorByStateOfMaster, MESSAGE2);
         for (Master master : mastersSorted)
             printer.printObject(master);
     }
@@ -50,5 +55,18 @@ public class MasterServiceImpl implements IMasterService {
     @Override
     public List<Master> getMasterStore() {
         return masterStore.getAll();
+    }
+
+    @Override
+    public List<Master> getFreeMasters() {
+        List<Master> masters = new ArrayList<Master>();
+//        printer.printMessage(MESSAGE2);
+        for (Master master : getMasterStore()) {
+            if (master.getStateFree()) {
+                masters.add(master);
+//                printer.printObject(master);
+            }
+        }
+        return masters;
     }
 }

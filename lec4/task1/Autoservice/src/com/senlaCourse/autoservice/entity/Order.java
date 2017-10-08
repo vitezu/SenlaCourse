@@ -2,6 +2,7 @@ package com.senlaCourse.autoservice.entity;
 
 import com.senlaCourse.autoservice.util.StateOrder;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class Order {
@@ -9,14 +10,45 @@ public class Order {
     private StateOrder stateOrder;
     private Date dateOfOrder;
     private Date dateOfExecution;
-    private Date dateOfPlaningExecution;
+    private Date dateOfStart;
     private Float price;
+    private Master master;
+    private Place place;
 
-    public Order(Integer num, Date dateOfOrder, Date dateOfPlaningExecution, Float price) {
+    public Order(Integer num, Date dateOfOrder, Date dateOfStart, Float price) {
         this.num = num;
         this.dateOfOrder = dateOfOrder;
-        this.dateOfPlaningExecution = dateOfPlaningExecution;
+        this.dateOfStart = dateOfStart;
         this.price = price;
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dateOfStart);
+        calendar.add(Calendar.DATE, 1);
+        this.dateOfExecution = calendar.getTime();
+    }
+
+    public Order() {
+
+    }
+
+    public Date getDateOfExecution() {
+        return dateOfExecution;
+    }
+
+    public Master getMaster() {
+        return master;
+    }
+
+    public void setMaster(Master master) {
+        this.master = master;
+    }
+
+    public Place getPlace() {
+        return place;
+    }
+
+    public void setPlace(Place place) {
+        this.place = place;
     }
 
     public Integer getNum() {
@@ -51,12 +83,12 @@ public class Order {
         this.dateOfExecution = dateOfExecution;
     }
 
-    public Date getDateOfPlaningEnd() {
-        return dateOfPlaningExecution;
+    public Date getDateOfStart() {
+        return dateOfStart;
     }
 
-    public void setDateOfPlaningEnd(Date dateOfPlaningExecution) {
-        this.dateOfPlaningExecution = dateOfPlaningExecution;
+    public void setDateOfStart(Date dateOfStart) {
+        this.dateOfStart = dateOfStart;
     }
 
     public Float getPrice() {
@@ -74,7 +106,8 @@ public class Order {
         sb.append(", stateOrder=").append(stateOrder);
         sb.append(", dateOfOrder=").append(dateOfOrder);
         sb.append(", dateOfExecution=").append(dateOfExecution);
-        sb.append(", dateOfPlaningExecution=").append(dateOfPlaningExecution);
+        sb.append(", dateOfStart=").append(dateOfStart);
+        sb.append(", place=").append(place);
         sb.append(", price=").append(price);
         sb.append('}');
         return sb.toString();

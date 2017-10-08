@@ -15,4 +15,6 @@ public interface IMasterService {
     void sortByStateFree ();
 
     List<Master> getMasterStore ();
+
+    List<Master> getFreeMasters();
 }

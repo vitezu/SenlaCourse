@@ -17,7 +17,7 @@ public interface IOrderService {
 
     void sortByDateOfPlannedExecution();
 
-    void sortByDateOfExecution();
+    List<Order> sortByDateOfExecution();
 
     void sortByPriceOfOperationOrder();
 

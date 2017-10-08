@@ -9,6 +9,10 @@ public class Place {
         this.stateFree = stateFree;
     }
 
+    public Place() {
+
+    }
+
     public void setStateFree(Boolean stateFree) {
         this.stateFree = stateFree;
     }

@@ -6,14 +6,21 @@ public class Master {
     private Boolean stateFree;
     private Order order;
 
-    public Master(String name, Boolean stateFree) {
+    public Master(String name) {
         this.name = name;
-        this.stateFree = stateFree;
+        this.stateFree = true;
+    }
+
+    public Master() {
     }
 
     public void setOrder(Order order) {
         this.order = order;
         stateFree = false;
+    }
+
+    public void setStateFree(Boolean stateFree) {
+        this.stateFree = stateFree;
     }
 
     public String getName() {

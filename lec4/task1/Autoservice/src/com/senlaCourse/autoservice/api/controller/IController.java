@@ -62,4 +62,6 @@ public interface IController {
     String[] convertInArrayOfOrders ();
 
     String[] convertInArrayOfMasters ();
+
+    void createOrder(Integer num, Float price);
 }

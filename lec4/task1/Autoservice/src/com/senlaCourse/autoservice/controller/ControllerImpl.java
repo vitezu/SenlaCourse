@@ -162,4 +162,57 @@ public class ControllerImpl implements IController {
         return arrayMasters;
     }
 
+    @Override
+    public void createOrder(Integer num, Float price) {
+        List<Place> freePlaces = placeService.getFreePlaces();
+        List<Master> freeMasters = masterService.getFreeMasters();
+        List<Order> orders = orderService.sortByDateOfExecution();
+
+        Date dateNow = new Date();
+
+        Order newOrder = new Order(num, dateNow, dateNow, price);
+
+        Place place = new Place();
+        if (freePlaces.size() > 0) {
+            place = freePlaces.get(0);
+            place.setStateFree(false);
+        } else {
+            if (orders.size() > 0) {
+                Order order = orders.get(0);
+                place = order.getPlace();
+
+                if (newOrder.getDateOfStart().getTime() < order.getDateOfEnd().getTime()) {
+                    newOrder.setDateOfStart(order.getDateOfEnd());
+                }
+            }
+        }
+
+        Master master = new Master();
+        if (freeMasters.size() > 0) {
+            master = freeMasters.get(0);
+            master.setStateFree(false);
+        } else {
+            if (orders.size() > 0) {
+                Order order = orders.get(0);
+                master = order.getMaster();
+
+                if (newOrder.getDateOfStart().getTime() < order.getDateOfEnd().getTime()) {
+                    newOrder.setDateOfStart(order.getDateOfEnd());
+                }
+            }
+        }
+
+        if (master.getName() != null && place.getNumPlace() != null) {
+            newOrder.setMaster(master);
+            newOrder.setPlace(place);
+            master.setOrder(newOrder);
+            orderService.operateOrder(newOrder);
+            orderService.addOrder(newOrder);
+
+
+//            System.out.println(newOrder);
+        } else {
+            System.out.println("Place or master not exist!!!");
+        }
+    }
 }
