@@ -3,7 +3,6 @@ package com.senlaCourse.autoservice.runner;
 import com.senlaCourse.autoservice.api.controller.IController;
 import com.senlaCourse.autoservice.controller.ControllerImpl;
 import com.senlaCourse.autoservice.entity.Master;
-import com.senlaCourse.autoservice.entity.Order;
 import com.senlaCourse.autoservice.entity.Place;
 import com.senlaCourse.autoservice.util.DateUtil;
 import com.senlaCourse.autoservice.util.Printer;
@@ -19,11 +18,8 @@ public class Runner {
         IController controller = new ControllerImpl();
         Printer printer = new Printer();
         DateUtil du = new DateUtil();
-        WriterReaderFile writerReaderFile = new WriterReaderFile();
-//
-//        Order order1 = new Order(1, du.create("01/10/2017"), du.create("02/11/2017"), 45.0f);
-//        Order order2 = new Order(2, du.create("11/08/2017"), du.create("05/10/2017"), 70.0f);
-//        Order order3 = new Order(3, du.create("13/07/2017"), du.create("15/09/2017"), 65.0f);
+        WriterReaderFile writerReaderFile = new WriterReaderFile(FILE_PLACE);
+
         Master master1 = new Master("Pupkin");
         Master master2 = new Master("Ivanov");
         Place place1 = new Place(1, true);
@@ -64,9 +60,8 @@ public class Runner {
         controller.getFreePlaces();
         printer.printLineEmpty();
 
-        writerReaderFile.worker(controller.convertInArrayOfPlaces(), FILE_PLACE);
-        writerReaderFile.worker(controller.convertInArrayOfOrders(), FILE_ORDER);
-        writerReaderFile.worker(controller.convertInArrayOfMasters(), FILE_MASTER);
+        writerReaderFile.writeToFile(controller.convertInArrayOfPlaces());
+        writerReaderFile.readFromFile();
     }
 }
 

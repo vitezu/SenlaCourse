@@ -9,12 +9,16 @@ import java.nio.file.Paths;
 
 public class WriterReaderFile {
 
-    public void worker(String[] mas, String file) {
+    private String TEST_FILE;
+    private Printer printer = new Printer();
+    private TextFileWorker fileWorker;
 
-        final String TEST_FILE = file;
-        final String[] testValues = mas;
+    public WriterReaderFile(String file) {
+        TEST_FILE = file;
+    }
 
-        // Create new file
+    public void writeToFile(String[] strings) {
+
         Path filePath = Paths.get(TEST_FILE);
         if (!Files.exists(filePath)) {
             try {
@@ -24,19 +28,15 @@ public class WriterReaderFile {
             }
         }
 
-        try {
-            TextFileWorker fileWorker = new TextFileWorker(TEST_FILE);
-            fileWorker.writeToFile(testValues);
-            Object[] readedValues = fileWorker.readFromFile();
-            // Check result
-            for (int i = 0; i < testValues.length; i++) {
+        fileWorker = new TextFileWorker(TEST_FILE);
+        fileWorker.writeToFile(strings);
+    }
 
-                if (!readedValues[i].equals(testValues[i])) {
-                    throw new RuntimeException("Error. Not equal values: " + readedValues[i] + " and " + testValues[i]);
-                }
-            }
-        } finally {
-//            Files.deleteIfExists(filePath);
+    public void readFromFile() {
+        Object[] readedValues = fileWorker.readFromFile();
+        System.out.println("Readed values");
+        for (Object object : readedValues) {
+            printer.printObject(object);
         }
     }
 }
