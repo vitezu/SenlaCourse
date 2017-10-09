@@ -1,5 +1,6 @@
 package menu;
 
+import com.senlaCourse.autoservice.api.controller.IActionMenu;
 import com.senlaCourse.autoservice.api.controller.IController;
 import com.senlaCourse.autoservice.entity.Master;
 import com.senlaCourse.autoservice.entity.Place;
@@ -10,10 +11,10 @@ import java.util.Scanner;
 
 public class ActionObjectMenuClass {
 
-    private IController controller;
+    private IActionMenu controller;
     private Printer printer;
 
-    public ActionObjectMenuClass(IController controller, Printer printer) {
+    public ActionObjectMenuClass(IActionMenu controller, Printer printer) {
         this.controller = controller;
         this.printer = printer;
     }

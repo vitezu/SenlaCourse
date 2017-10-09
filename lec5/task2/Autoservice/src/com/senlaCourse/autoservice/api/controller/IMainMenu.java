@@ -1,6 +1,6 @@
 package com.senlaCourse.autoservice.api.controller;
 
-public interface IMainMenuInterface {
+public interface IMainMenu {
 
     void showActionObjectMenu();
     void showOrderServiceMenu();

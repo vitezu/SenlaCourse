@@ -8,7 +8,6 @@ import com.senlaCourse.autoservice.service.MasterServiceImpl;
 import com.senlaCourse.autoservice.service.OrderServiceImpl;
 import com.senlaCourse.autoservice.service.PlaceServiceImpl;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

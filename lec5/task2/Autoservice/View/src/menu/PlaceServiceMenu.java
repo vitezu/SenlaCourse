@@ -1,16 +1,17 @@
 package menu;
 
 import com.senlaCourse.autoservice.api.controller.IController;
+import com.senlaCourse.autoservice.api.controller.IPlaceServiceController;
 import com.senlaCourse.autoservice.util.Printer;
 import menu.enums.PlaceServiceEnum;
 
 import java.util.Scanner;
 
 public class PlaceServiceMenu {
-    private IController controller;
+    private IPlaceServiceController controller;
     private Printer printer;
 
-    public PlaceServiceMenu(IController controller, Printer printer) {
+    public PlaceServiceMenu(IPlaceServiceController controller, Printer printer) {
         this.controller = controller;
         this.printer = printer;
     }

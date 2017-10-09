@@ -1,6 +1,6 @@
 package menu;
 
-import com.senlaCourse.autoservice.api.controller.IMainMenuInterface;
+import com.senlaCourse.autoservice.api.controller.IMainMenu;
 import com.senlaCourse.autoservice.util.Printer;
 import menu.enums.MainMenuEnum;
 
@@ -8,10 +8,10 @@ import java.util.Scanner;
 
 public class MainMenuClass {
 
-    private IMainMenuInterface controller;
+    private IMainMenu controller;
     private Printer printer;
 
-    public MainMenuClass(IMainMenuInterface controller, Printer printer) {
+    public MainMenuClass(IMainMenu controller, Printer printer) {
         this.controller = controller;
         this.printer = printer;
     }

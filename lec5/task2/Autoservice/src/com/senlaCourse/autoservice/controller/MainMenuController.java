@@ -1,21 +1,23 @@
 package com.senlaCourse.autoservice.controller;
 
-import com.senlaCourse.autoservice.api.controller.IController;
-import com.senlaCourse.autoservice.api.controller.IMainMenuInterface;
-import com.senlaCourse.autoservice.entity.Master;
+import com.senlaCourse.autoservice.api.controller.*;
+import com.senlaCourse.autoservice.api.service.IMasterService;
 import com.senlaCourse.autoservice.util.Printer;
 import menu.ActionObjectMenuClass;
 import menu.MasterServiceMenu;
 import menu.OrderServiceMenu;
 import menu.PlaceServiceMenu;
 
-public class MainMenuController implements IMainMenuInterface {
+public class MainMenuController implements IMainMenu {
     private IController controller = new ControllerImpl();
+    private IActionMenu actionMenuController = new ActionMenuController();
+    private IPlaceServiceController placeServiceController = new PlaceServiceController();
+    private IMasterServiceController masterServiceController = new MasterServiceController();
     private Printer printer = new Printer();
 
     @Override
     public void showActionObjectMenu() {
-        ActionObjectMenuClass actionObjectMenu = new ActionObjectMenuClass(controller, printer);
+        ActionObjectMenuClass actionObjectMenu = new ActionObjectMenuClass(actionMenuController, printer);
         actionObjectMenu.show();
     }
 
@@ -27,13 +29,13 @@ public class MainMenuController implements IMainMenuInterface {
 
     @Override
     public void showPlaceServiceMenu() {
-        PlaceServiceMenu placeServiceMenu = new PlaceServiceMenu(controller, printer);
+        PlaceServiceMenu placeServiceMenu = new PlaceServiceMenu(placeServiceController, printer);
         placeServiceMenu.show();
     }
 
     @Override
     public void showMasterServiceMenu() {
-        MasterServiceMenu masterServiceMenu = new MasterServiceMenu(controller, printer);
+        MasterServiceMenu masterServiceMenu = new MasterServiceMenu(masterServiceController, printer);
         masterServiceMenu.show();
     }
 
