@@ -1,9 +1,21 @@
 package navigator;
 
+import builder.Builder;
 import menu.Menu;
 
 public class Navigator {
     private Menu currentMenu;
+
+    private static Navigator instance = null;
+    protected Navigator() {};
+
+    public static Navigator getInstance() {
+        if (instance == null){
+            instance = new Navigator();
+        }
+        return instance;
+    }
+
 
     public Navigator(Menu menu) {
         currentMenu = menu;
@@ -17,20 +29,21 @@ public class Navigator {
     }
 
     public void navigate(Integer index) {
+       Builder builder = new Builder();
 
         switch (index) {
             case 1:
-                Menu menuActionObjects = new Menu("Action Objects menu ");
-                currentMenu.setMenuItems(menuActionObjects.getMenuItems());
-                currentMenu.setName(menuActionObjects.getName());
-                printMenu();
+                setCurrentMenu(builder.buildActionObjectMenu());
             case 2:
-                Menu menuPlaceService = new Menu("Place Service menu");
-                currentMenu.setMenuItems(menuPlaceService.getMenuItems());
-                currentMenu.setName(menuPlaceService.getName());
-                printMenu();
+                setCurrentMenu(builder.buildPlaceServiceMenu());
             case 3:
 
         }
+    }
+
+    public void setCurrentMenu(Menu menu) {
+        currentMenu.setMenuItems(menu.getMenuItems());
+        currentMenu.setName(menu.getName());
+        printMenu();
     }
 }

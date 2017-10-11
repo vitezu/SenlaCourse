@@ -2,8 +2,6 @@ package menu;
 
 import menuItems.MenuItems;
 
-import java.util.List;
-
 public class Menu {
     private String name;
     private MenuItems[] menuItems;

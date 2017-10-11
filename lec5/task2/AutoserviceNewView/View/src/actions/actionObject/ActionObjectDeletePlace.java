@@ -1,19 +1,19 @@
-package actions.actionsPlaceService;
+package actions.actionObject;
 
 import api.IActionObject;
+import com.senlaCourse.autoservice.api.controller.IActionMenu;
 import com.senlaCourse.autoservice.api.controller.IController;
-import navigator.Navigator;
 
-public class ActionCalcFreePlace implements IActionObject {
+public class ActionObjectDeletePlace implements IActionObject {
+
 
     @Override
     public void execute(IController controller) {
-        controller.calcFreePlaces();
+
     }
 
     @Override
     public void navigateTo(Integer index) {
-        Navigator.getInstance().navigate(index);
 
     }
 }
