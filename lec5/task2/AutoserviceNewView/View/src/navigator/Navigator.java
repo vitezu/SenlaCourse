@@ -2,8 +2,6 @@ package navigator;
 
 import menu.Menu;
 
-import java.util.Scanner;
-
 public class Navigator {
     private Menu currentMenu;
 
@@ -19,11 +17,20 @@ public class Navigator {
     }
 
     public void navigate(Integer index) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Insert num of menu");
-        index = sc.nextInt();
-        if (index == 1) {
-//            currentMenu.setMenuItems(menuActionObjects);
+
+        switch (index) {
+            case 1:
+                Menu menuActionObjects = new Menu("Action Objects menu ");
+                currentMenu.setMenuItems(menuActionObjects.getMenuItems());
+                currentMenu.setName(menuActionObjects.getName());
+                printMenu();
+            case 2:
+                Menu menuPlaceService = new Menu("Place Service menu");
+                currentMenu.setMenuItems(menuPlaceService.getMenuItems());
+                currentMenu.setName(menuPlaceService.getName());
+                printMenu();
+            case 3:
+
         }
     }
 }
