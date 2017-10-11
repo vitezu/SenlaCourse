@@ -17,20 +17,9 @@ public class MenuController {
     }
 
     public void run() {
-        Menu rootMenu = new Menu("Main manu");
+        builder = new Builder();
 
-        Menu menuActionObjects = new Menu("Action Objects menu ");
-        Menu menuPlaceService = new Menu("Place Service menu");
-
-        MenuItems actionObjects = new MenuItems("Action objects", null, menuActionObjects);
-        MenuItems placeService = new MenuItems("Place service", null, menuPlaceService);
-        MenuItems masterService = new MenuItems("Master service", null, rootMenu);
-        MenuItems orderService = new MenuItems("Order service", null, rootMenu);
-
-        MenuItems[] mainMenu = {actionObjects, placeService, masterService, orderService};
-        rootMenu.setMenuItems(mainMenu);
-
-        navigator = new Navigator(rootMenu);
+        navigator = new Navigator(builder.buildRootMenu());
         navigator.printMenu();
 
         Scanner sc = new Scanner(System.in);
@@ -40,5 +29,4 @@ public class MenuController {
 
         navigator.printMenu();
     }
-
 }

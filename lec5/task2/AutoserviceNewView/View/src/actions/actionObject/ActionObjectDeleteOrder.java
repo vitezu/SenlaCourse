@@ -1,7 +1,6 @@
 package actions.actionObject;
 
 import api.IActionObject;
-import com.senlaCourse.autoservice.api.controller.IActionMenu;
 import com.senlaCourse.autoservice.api.controller.IController;
 
 public class ActionObjectDeleteOrder implements IActionObject {
