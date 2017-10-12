@@ -11,19 +11,19 @@ public interface IOrderService {
 
     void deleteOrder (Order order);
 
-    void sortByDateOfOrder();
+    List<Order> sortByDateOfOrder();
 
-    void sortByPriceOfOrder();
+    List<Order> sortByPriceOfOrder();
 
-    void sortByDateOfPlannedExecution();
+    List<Order> sortByDateOfPlannedExecution();
 
     List<Order> sortByDateOfExecution();
 
-    void sortByPriceOfOperationOrder();
+    List<Order> sortByPriceOfOperationOrder();
 
-    void sortByDateOfOperationOrder();
+    List<Order> sortByDateOfOperationOrder();
 
-    void sortByDateOfExecutionOperationOrder();
+    List<Order> sortByDateOfExecutionOperationOrder();
 
     void canceleOrder(Order order);
 

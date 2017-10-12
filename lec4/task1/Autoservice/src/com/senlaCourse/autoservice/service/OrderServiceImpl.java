@@ -17,13 +17,6 @@ import java.util.Date;
 import java.util.List;
 
 public class OrderServiceImpl implements IOrderService {
-    private final String MESSAGE1 = "Sorted by date of order";
-    private final String MESSAGE2 = "Sorted by price of order";
-    private final String MESSAGE3 = "Sorted by date of start";
-    private final String MESSAGE4 = "Sorted by date of execution";
-    private final String MESSAGE5 = "Sorted by price of operation order";
-    private final String MESSAGE6 = "Sorted by date of operation order";
-    private final String MESSAGE7 = "Sorted by date of execution operation order";
 
     private final ComparatorByDateOfOrder comparatorByDateOfOrder = new ComparatorByDateOfOrder();
     private final ComparatorByPriceOfOrder comparatorByPriceOfOrder = new ComparatorByPriceOfOrder();
@@ -43,71 +36,71 @@ public class OrderServiceImpl implements IOrderService {
         order.setStateOrder(StateOrder.DELETED);
     }
 
-    public List<Order> ordersSorted (Comparator comparator, String message) {
+    public List<Order> ordersSorted(Comparator comparator) {
         List<Order> ordersSorted = new ArrayList<>(orderStore.getAll());
-        printer.printMessage(message);
         ordersSorted.sort(comparator);
         return ordersSorted;
     }
 
     @Override
-    public void sortByDateOfOrder() {
-        List<Order> ordersSorted = ordersSorted(comparatorByDateOfOrder, MESSAGE1 );
-        for (Order order : ordersSorted)
-            printer.printObject(order);
+    public List<Order> sortByDateOfOrder() {
+        List<Order> ordersSorted = ordersSorted(comparatorByDateOfOrder);
+        return ordersSorted;
     }
 
     @Override
-    public void sortByPriceOfOrder() {
-        List<Order> ordersSorted = ordersSorted(comparatorByPriceOfOrder, MESSAGE2 );
-        for (Order order : ordersSorted)
-            printer.printObject(order);
+    public List<Order> sortByPriceOfOrder() {
+        List<Order> ordersSorted = ordersSorted(comparatorByPriceOfOrder);
+        return ordersSorted;
     }
 
     @Override
-    public void sortByDateOfPlannedExecution() {
-        List<Order> ordersSorted = ordersSorted(comparatorByDateOfStart, MESSAGE3 );
-        for (Order order : ordersSorted)
-            printer.printObject(order);
+    public List<Order> sortByDateOfPlannedExecution() {
+        List<Order> ordersSorted = ordersSorted(comparatorByDateOfStart);
+        return ordersSorted;
     }
 
     @Override
     public List<Order> sortByDateOfExecution() {
         List<Order> ordersSorted = new ArrayList<>(orderStore.getAll());
         ordersSorted.sort(comparatorByDateOfExecution);
-//        printer.printMessage(MESSAGE4);
-//        for (Order order : ordersSorted)
-//            printer.printObject(order);
         return ordersSorted;
     }
 
     @Override
-    public void sortByPriceOfOperationOrder() {
-        List<Order> ordersSorted = ordersSorted(comparatorByPriceOfOrder, MESSAGE5 );
+    public List<Order> sortByPriceOfOperationOrder() {
+        List<Order> ordersSorted = ordersSorted(comparatorByPriceOfOrder);
         for (Order order : ordersSorted) {
-            if (order.getStateOrder() == StateOrder.OPERATING) printer.printObject(order);
+            if (order.getStateOrder() == StateOrder.OPERATING) {
+                printer.printObject(order);
+            }
         }
+        return ordersSorted;
     }
 
     @Override
-    public void sortByDateOfExecutionOperationOrder (){
-        List<Order> ordersSorted = ordersSorted(comparatorByPriceOfOrder, MESSAGE7 );
+    public  List<Order> sortByDateOfExecutionOperationOrder() {
+        List<Order> ordersSorted = ordersSorted(comparatorByPriceOfOrder);
         for (Order order : ordersSorted) {
-            if (order.getStateOrder() == StateOrder.OPERATING)
+            if (order.getStateOrder() == StateOrder.OPERATING) {
                 printer.printObject(order);
+            }
         }
+        return ordersSorted;
     }
 
     @Override
-    public void sortByDateOfOperationOrder() {
-        List<Order> ordersSorted = ordersSorted(comparatorByDateOfOrder, MESSAGE6 );
+    public List<Order> sortByDateOfOperationOrder() {
+        List<Order> ordersSorted = ordersSorted(comparatorByDateOfOrder);
         for (Order order : ordersSorted) {
-            if (order.getStateOrder() == StateOrder.OPERATING)
+            if (order.getStateOrder() == StateOrder.OPERATING) {
                 printer.printObject(order);
+            }
         }
+        return ordersSorted;
     }
 
-    public void setDateOfExecution (Date date) {
+    public void setDateOfExecution(Date date) {
         orderStore.getAll();
     }
 

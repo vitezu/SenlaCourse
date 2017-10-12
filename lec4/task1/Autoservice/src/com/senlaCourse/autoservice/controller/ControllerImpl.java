@@ -36,8 +36,8 @@ public class ControllerImpl implements IController {
     }
 
     @Override
-    public void getFreePlaces() {
-        placeService.getFreePlaces();
+    public List<Place> getFreePlaces() {
+       return placeService.getFreePlaces();
     }
 
     @Override
@@ -51,38 +51,38 @@ public class ControllerImpl implements IController {
     }
 
     @Override
-    public void sortByDateOfOrder() {
-        orderService.sortByDateOfOrder();
+    public List<Order> sortByDateOfOrder() {
+        return orderService.sortByDateOfOrder();
     }
 
     @Override
-    public void sortByPriceOfOrder() {
-        orderService.sortByPriceOfOrder();
+    public List<Order> sortByPriceOfOrder() {
+        return orderService.sortByPriceOfOrder();
     }
 
     @Override
-    public void sortByDateOfPlannedExecution() {
-        orderService.sortByDateOfPlannedExecution();
+    public List<Order> sortByDateOfPlannedExecution() {
+        return orderService.sortByDateOfPlannedExecution();
     }
 
     @Override
-    public void sortByDateOfExecution() {
-        orderService.sortByDateOfExecution();
+    public List<Order> sortByDateOfExecution() {
+        return orderService.sortByDateOfExecution();
     }
 
     @Override
-    public void sortByPriceOfOperationOrder() {
-        orderService.sortByPriceOfOperationOrder();
+    public List<Order> sortByPriceOfOperationOrder() {
+        return orderService.sortByPriceOfOperationOrder();
     }
 
     @Override
-    public void sortByDateOfOperationOrder() {
-        orderService.sortByDateOfOperationOrder();
+    public List<Order> sortByDateOfOperationOrder() {
+       return orderService.sortByDateOfOperationOrder();
     }
 
     @Override
-    public void sortByDateOfExecutionOperationOrder() {
-        orderService.sortByDateOfExecutionOperationOrder();
+    public List<Order> sortByDateOfExecutionOperationOrder() {
+        return orderService.sortByDateOfExecutionOperationOrder();
     }
 
     @Override
@@ -93,7 +93,6 @@ public class ControllerImpl implements IController {
     @Override
     public void closeOrder(Order order, Date date) {
         orderService.closeOrder(order, date);
-
     }
 
     @Override
@@ -112,13 +111,13 @@ public class ControllerImpl implements IController {
     }
 
     @Override
-    public void sortByNameOfMaster() {
-        masterService.sortByNameOfMaster();
+    public List<Master> sortByNameOfMaster() {
+       return masterService.sortByNameOfMaster();
     }
 
     @Override
-    public void sortByStateFree() {
-        masterService.sortByStateFree();
+    public List<Master> sortByStateFree() {
+        return masterService.sortByStateFree();
     }
 
     @Override
@@ -208,9 +207,6 @@ public class ControllerImpl implements IController {
             master.setOrder(newOrder);
             orderService.operateOrder(newOrder);
             orderService.addOrder(newOrder);
-
-
-//            System.out.println(newOrder);
         } else {
             System.out.println("Place or master not exist!!!");
         }

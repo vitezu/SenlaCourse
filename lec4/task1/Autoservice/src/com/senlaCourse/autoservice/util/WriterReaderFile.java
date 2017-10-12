@@ -6,37 +6,28 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class WriterReaderFile {
-
-    private String TEST_FILE;
-    private Printer printer = new Printer();
     private TextFileWorker fileWorker;
 
-    public WriterReaderFile(String file) {
-        TEST_FILE = file;
+    public void writeToFile(String file, String[] objects) {
+        Path filePath = Paths.get(file);
+            if (!Files.exists(filePath)) {
+                try {
+                    Files.createFile(filePath);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+        }
+        fileWorker = new TextFileWorker(file);
+        fileWorker.writeToFile(objects);
     }
 
-    public void writeToFile(String[] strings) {
-
-        Path filePath = Paths.get(TEST_FILE);
-        if (!Files.exists(filePath)) {
-            try {
-                Files.createFile(filePath);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        fileWorker = new TextFileWorker(TEST_FILE);
-        fileWorker.writeToFile(strings);
-    }
-
-    public void readFromFile() {
-        Object[] readedValues = fileWorker.readFromFile();
-        System.out.println("Readed values");
-        for (Object object : readedValues) {
-            printer.printObject(object);
-        }
+    public List<Object> readFromFile() {
+        List<Object> objects = new ArrayList<Object>();
+        return objects = Arrays.asList(fileWorker.readFromFile());
     }
 }

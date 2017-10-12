@@ -1,7 +1,5 @@
 package com.senlaCourse.autoservice.api.controller;
 
-import com.senlaCourse.autoservice.api.service.IMasterService;
-import com.senlaCourse.autoservice.api.service.IPlaceService;
 import com.senlaCourse.autoservice.entity.Master;
 import com.senlaCourse.autoservice.entity.Order;
 import com.senlaCourse.autoservice.entity.Place;
@@ -17,25 +15,25 @@ public interface IController {
 
     void calcFreePlaces(List<Place> places, List<Master> masters);
 
-    void getFreePlaces();
+    List<Place> getFreePlaces();
 
     void addOrder (Order order);
 
     void deleteOrder (Order order);
 
-    void sortByDateOfOrder();
+    List<Order> sortByDateOfOrder();
 
-    void sortByPriceOfOrder();
+    List<Order> sortByPriceOfOrder();
 
-    void sortByDateOfPlannedExecution();
+    List<Order> sortByDateOfPlannedExecution();
 
-    void sortByDateOfExecution();
+    List<Order> sortByDateOfExecution();
 
-    void sortByPriceOfOperationOrder();
+    List<Order> sortByPriceOfOperationOrder();
 
-    void sortByDateOfOperationOrder();
+    List<Order> sortByDateOfOperationOrder();
 
-    void sortByDateOfExecutionOperationOrder();
+    List<Order> sortByDateOfExecutionOperationOrder();
 
     void canceleOrder(Order order);
 
@@ -47,9 +45,9 @@ public interface IController {
 
     void deleteMaster (Master master);
 
-    void sortByNameOfMaster();
+    List<Master> sortByNameOfMaster();
 
-    void sortByStateFree();
+    List<Master> sortByStateFree();
 
     List<Place> getAllPlaces();
 

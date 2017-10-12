@@ -13,11 +13,9 @@ import java.util.Comparator;
 import java.util.List;
 
 public class MasterServiceImpl implements IMasterService {
-    private Printer printer = new Printer();
+
     private final ComparatorByNameOfMaster comparatorByNameOfMaster = new ComparatorByNameOfMaster();
     private final ComparatorByStateOfMaster comparatorByStateOfMaster = new ComparatorByStateOfMaster();
-    private final String MESSAGE1 = "Sorted by name of master";
-    private final String MESSAGE2 = "Sorted by state free of master";
     private IMasterStore masterStore = new MasterStoreImpl();
 
     @Override
@@ -30,26 +28,22 @@ public class MasterServiceImpl implements IMasterService {
         masterStore.delete(master);
     }
 
-    public List<Master> sortMaster(Comparator comparator, String mesage) {
+    public List<Master> sortMaster(Comparator comparator) {
         List<Master> mastersSorted = new ArrayList<>(masterStore.getAll());
         mastersSorted.sort(comparator);
-        printer.printMessage(mesage);
         return mastersSorted;
     }
 
     @Override
-    public void sortByNameOfMaster() {
-        List<Master> mastersSorted = sortMaster(comparatorByNameOfMaster, MESSAGE1);
-        for (Master master : mastersSorted)
-            printer.printObject(master);
+    public List<Master> sortByNameOfMaster() {
+        List<Master> mastersSorted = sortMaster(comparatorByNameOfMaster);
+        return mastersSorted;
     }
 
-
     @Override
-    public void sortByStateFree() {
-        List<Master> mastersSorted = sortMaster(comparatorByStateOfMaster, MESSAGE2);
-        for (Master master : mastersSorted)
-            printer.printObject(master);
+    public List<Master> sortByStateFree() {
+        List<Master> mastersSorted = sortMaster(comparatorByStateOfMaster);
+        return mastersSorted;
     }
 
     @Override
@@ -60,11 +54,9 @@ public class MasterServiceImpl implements IMasterService {
     @Override
     public List<Master> getFreeMasters() {
         List<Master> masters = new ArrayList<Master>();
-//        printer.printMessage(MESSAGE2);
         for (Master master : getMasterStore()) {
             if (master.getStateFree()) {
                 masters.add(master);
-//                printer.printObject(master);
             }
         }
         return masters;
