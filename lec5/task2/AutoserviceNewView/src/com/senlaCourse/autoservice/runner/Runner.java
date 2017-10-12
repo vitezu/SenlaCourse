@@ -1,13 +1,15 @@
 package com.senlaCourse.autoservice.runner;
 
-import controller.MenuController;
+import builder.Builder;
+import menu.Menu;
+import navigator.Navigator;
 
 public class Runner {
 
     public static void main(String[] args) throws Exception {
 
-        MenuController controller = new MenuController();
-        controller.run();
+        Menu rootMenu = Builder.getInstance().buildRootMenu();
+        Navigator.getInstance().navigate(rootMenu);
     }
 }
 
