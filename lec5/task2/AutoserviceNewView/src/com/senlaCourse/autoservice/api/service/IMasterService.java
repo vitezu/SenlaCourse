@@ -10,9 +10,9 @@ public interface IMasterService {
 
     void deleteMaster (Master master);
 
-    void sortByNameOfMaster();
+    List<Master>sortByNameOfMaster();
 
-    void sortByStateFree ();
+    List<Master> sortByStateFree ();
 
     List<Master> getMasterStore ();
 

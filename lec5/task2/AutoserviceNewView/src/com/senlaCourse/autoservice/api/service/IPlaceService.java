@@ -11,7 +11,7 @@ public interface IPlaceService {
 
     void deletePlace(Place place);
 
-    void calcFreePlaces(List<Place> places, List<Master> masters);
+    Integer calcFreePlaces();
 
     List<Place> getFreePlaces();
 

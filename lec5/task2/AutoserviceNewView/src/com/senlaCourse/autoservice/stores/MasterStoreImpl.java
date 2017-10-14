@@ -12,7 +12,23 @@ public class MasterStoreImpl implements IMasterStore {
 
     @Override
     public void delete(Master master) {
-        masters.remove(master);
+        {
+            int index = 0;
+            boolean flag = false;
+            for (int i=0; i<masters.size(); i++){
+                if (masters.get(i).getName().equals(master.getName()) ){
+                    flag = true;
+                    index = i;
+                    break;
+                }
+            }
+            if (flag) {
+                masters.remove(index);
+            }
+            else {
+                System.out.println("You cannot delete this element!");
+            }
+        }
     }
 
     @Override

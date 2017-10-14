@@ -3,23 +3,26 @@ package com.senlaCourse.autoservice.service;
 import com.senlaCourse.autoservice.api.service.IMasterService;
 import com.senlaCourse.autoservice.api.story.IMasterStore;
 import com.senlaCourse.autoservice.entity.Master;
-import com.senlaCourse.autoservice.entity.Place;
 import com.senlaCourse.autoservice.util.comparators.master.ComparatorByNameOfMaster;
 import com.senlaCourse.autoservice.util.comparators.master.ComparatorByStateOfMaster;
 import com.senlaCourse.autoservice.stores.MasterStoreImpl;
 import com.senlaCourse.autoservice.util.Printer;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class MasterServiceImpl implements IMasterService {
 
     private static MasterServiceImpl instance = null;
 
-    protected MasterServiceImpl() {};
+    protected MasterServiceImpl() {
+    }
+
+    ;
 
     public static MasterServiceImpl getInstance() {
-        if (instance == null){
+        if (instance == null) {
             instance = new MasterServiceImpl();
         }
         return instance;
@@ -28,8 +31,6 @@ public class MasterServiceImpl implements IMasterService {
     private Printer printer = new Printer();
     private final ComparatorByNameOfMaster comparatorByNameOfMaster = new ComparatorByNameOfMaster();
     private final ComparatorByStateOfMaster comparatorByStateOfMaster = new ComparatorByStateOfMaster();
-    private final String MESSAGE1 = "Sorted by name of master";
-    private final String MESSAGE2 = "Sorted by state free of master";
     private IMasterStore masterStore = new MasterStoreImpl();
 
     @Override
@@ -42,22 +43,22 @@ public class MasterServiceImpl implements IMasterService {
         masterStore.delete(master);
     }
 
-    @Override
-    public void sortByNameOfMaster() {
+    public List<Master> sortMaster(Comparator comparator) {
         List<Master> mastersSorted = new ArrayList<>(masterStore.getAll());
-        mastersSorted.sort(comparatorByNameOfMaster);
-        printer.printMessage(MESSAGE1);
-        for (Master master : mastersSorted)
-            printer.printObject(master);
+        mastersSorted.sort(comparator);
+        return mastersSorted;
     }
 
     @Override
-    public void sortByStateFree() {
-        List<Master> mastersSorted = new ArrayList<>(masterStore.getAll());
-        mastersSorted.sort(comparatorByStateOfMaster);
-        printer.printMessage(MESSAGE2);
-        for (Master master : mastersSorted)
-            printer.printObject(master);
+    public List<Master> sortByNameOfMaster() {
+        List<Master> mastersSorted = sortMaster(comparatorByNameOfMaster);
+        return mastersSorted;
+    }
+
+    @Override
+    public List<Master> sortByStateFree() {
+        List<Master> mastersSorted = sortMaster(comparatorByStateOfMaster);
+        return mastersSorted;
     }
 
     @Override
@@ -68,11 +69,9 @@ public class MasterServiceImpl implements IMasterService {
     @Override
     public List<Master> getFreeMasters() {
         List<Master> masters = new ArrayList<Master>();
-//        printer.printMessage(MESSAGE2);
         for (Master master : getMasterStore()) {
             if (master.getStateFree()) {
                 masters.add(master);
-//                printer.printObject(master);
             }
         }
         return masters;

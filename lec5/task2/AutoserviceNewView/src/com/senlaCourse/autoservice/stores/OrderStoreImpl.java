@@ -13,7 +13,25 @@ public class OrderStoreImpl implements IOrderStore {
 
     @Override
     public void delete(Order order) {
-        orders.remove(order);
+        {
+            int index = 0;
+            boolean flag = false;
+            for (int i=0; i<orders.size(); i++){
+                if (orders.get(i).getNum() == order.getNum()){
+                    flag = true;
+                    index = i;
+                    orders.get(i).getMaster().setStateFree(true);
+                    orders.get(i).getPlace().setStateFree(true);
+                    break;
+                }
+            }
+            if (flag) {
+                orders.remove(index);
+            }
+            else {
+                System.out.println("You cannot delete this element!");
+            }
+        }
     }
 
     @Override

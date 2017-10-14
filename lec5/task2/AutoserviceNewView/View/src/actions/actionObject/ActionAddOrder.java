@@ -25,11 +25,11 @@ public class ActionAddOrder implements IAction {
 
         System.out.println("Enter uniq number of order");
         Scanner scanner = new Scanner(System.in);
-        int num = scanner.nextInt();
+        Integer num = scanner.nextInt();
 
         System.out.println("Enter price of order");
         scanner = new Scanner(System.in);
-        float price = scanner.nextFloat();
+        Float price = scanner.nextFloat();
 
         Order newOrder = new Order(num, dateNow, dateNow, price);
 
@@ -69,8 +69,6 @@ public class ActionAddOrder implements IAction {
             master.setOrder(newOrder);
 
             OrderServiceImpl.getInstance().addOrder(newOrder);
-
-            System.out.println(newOrder);
         } else {
             System.out.println("Place or master not exist!!!");
         }

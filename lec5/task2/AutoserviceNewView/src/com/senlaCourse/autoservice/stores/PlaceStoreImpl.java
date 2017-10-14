@@ -25,7 +25,21 @@ public class PlaceStoreImpl implements IPlaceStore {
     @Override
     public void delete(Place place) {
         {
-            places.remove(place);
+            int index = 0;
+            boolean flag = false;
+            for (int i=0; i<places.size(); i++){
+                if (places.get(i).getNumPlace() == place.getNumPlace()){
+                    flag = true;
+                    index = i;
+                    break;
+                }
+            }
+            if (flag) {
+                places.remove(index);
+            }
+            else {
+                System.out.println("You cannot delete this element!");
+            }
         }
     }
 }

@@ -29,10 +29,6 @@ public class OrderServiceImpl implements IOrderService {
         return instance;
     }
 
-    private final String MESSAGE1 = "Sorted by date of order";
-    private final String MESSAGE2 = "Sorted by price of order";
-    private final String MESSAGE3 = "Sorted by date of planned execution order";
-    private final String MESSAGE4 = "Sorted by date of execution";
     private final String MESSAGE5 = "Sorted by price of operation order";
     private final String MESSAGE6 = "Sorted by date of operation order";
     private final String MESSAGE7 = "Sorted by date of execution operation order";
@@ -55,38 +51,34 @@ public class OrderServiceImpl implements IOrderService {
         order.setStateOrder(StateOrder.DELETED);
     }
 
-    @Override
-    public void sortByDateOfOrder() {
-        List<Order> ordersSorted = sortByComparator(comparatorByDateOfOrder, MESSAGE1);
-        for (Order order : ordersSorted)
-            printer.printObject(order);
+    public List<Order> ordersSorted(Comparator comparator) {
+        List<Order> ordersSorted = new ArrayList<>(orderStore.getAll());
+        ordersSorted.sort(comparator);
+        return ordersSorted;
     }
 
     @Override
-    public void sortByPriceOfOrder() {
-        List<Order> ordersSorted = new ArrayList<>(orderStore.getAll());
-        ordersSorted.sort(comparatorByPriceOfOrder);
-        printer.printMessage(MESSAGE2);
-        for (Order order : ordersSorted)
-            printer.printObject(order);
+    public List<Order> sortByDateOfOrder() {
+        List<Order> ordersSorted = ordersSorted(comparatorByDateOfOrder);
+        return ordersSorted;
     }
 
     @Override
-    public void sortByDateOfStart() {
-        List<Order> ordersSorted = new ArrayList<>(orderStore.getAll());
-        ordersSorted.sort(comparatorByDateOfStart);
-        printer.printMessage(MESSAGE3);
-        for (Order order : ordersSorted)
-            printer.printObject(order);
+    public List<Order> sortByPriceOfOrder() {
+        List<Order> ordersSorted = ordersSorted(comparatorByPriceOfOrder);
+        return ordersSorted;
+    }
+
+    @Override
+    public List<Order> sortByDateOfStart() {
+        List<Order> ordersSorted = ordersSorted(comparatorByDateOfStart);
+        return ordersSorted;
     }
 
     @Override
     public List<Order> sortByDateOfExecution() {
         List<Order> ordersSorted = new ArrayList<>(orderStore.getAll());
         ordersSorted.sort(comparatorByDateOfExecution);
-//        printer.printMessage(MESSAGE4);
-//        for (Order order : ordersSorted)
-//            printer.printObject(order);
         return ordersSorted;
     }
 
@@ -122,12 +114,8 @@ public class OrderServiceImpl implements IOrderService {
         }
     }
 
-    public void setDateOfExecution (Date date) {
-        orderStore.getAll();
-    }
-
     @Override
-    public void canceleOrder(Order order) {
+    public void cancelOrder(Order order) {
         order.setStateOrder(StateOrder.CANCELED);
     }
 
@@ -146,14 +134,4 @@ public class OrderServiceImpl implements IOrderService {
     public List<Order> getOrderStore() {
         return orderStore.getAll();
     }
-
-    public List<Order> sortByComparator (Comparator comparator, String message) {
-                List<Order> ordersSorted = new ArrayList<>(orderStore.getAll());
-        ordersSorted.sort(comparator);
-        printer.printMessage(message);
-       return  ordersSorted;
-    }
-
-
-
 }
