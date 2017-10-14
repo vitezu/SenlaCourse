@@ -27,6 +27,9 @@ public class Order {
         this.dateOfExecution = calendar.getTime();
     }
 
+    public Order(Integer num) {
+        this.num = num;
+    }
     public Order() {
 
     }

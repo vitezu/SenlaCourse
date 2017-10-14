@@ -1,5 +1,6 @@
 package com.senlaCourse.autoservice.api.service;
 
+import com.senlaCourse.autoservice.entity.Master;
 import com.senlaCourse.autoservice.entity.Order;
 
 import java.util.Date;
@@ -31,5 +32,9 @@ public interface IOrderService {
 
     void operateOrder(Order order);
 
-    List<Order> getOrderStore ();
+    List<Order> getOrderStore();
+
+    Order getOrderExecuteMaster(Master master);
+
+    List<Order> getOrdersIntervalTime (Date date1, Date date2);
 }

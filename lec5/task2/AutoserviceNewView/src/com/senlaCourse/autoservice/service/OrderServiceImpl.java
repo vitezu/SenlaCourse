@@ -2,6 +2,7 @@ package com.senlaCourse.autoservice.service;
 
 import com.senlaCourse.autoservice.api.service.IOrderService;
 import com.senlaCourse.autoservice.api.story.IOrderStore;
+import com.senlaCourse.autoservice.entity.Master;
 import com.senlaCourse.autoservice.entity.Order;
 import com.senlaCourse.autoservice.util.StateOrder;
 import com.senlaCourse.autoservice.util.comparators.order.ComparatorByDateOfExecution;
@@ -20,10 +21,13 @@ public class OrderServiceImpl implements IOrderService {
 
     private static OrderServiceImpl instance = null;
 
-    protected OrderServiceImpl() {};
+    protected OrderServiceImpl() {
+    }
+
+    ;
 
     public static OrderServiceImpl getInstance() {
-        if (instance == null){
+        if (instance == null) {
             instance = new OrderServiceImpl();
         }
         return instance;
@@ -98,8 +102,7 @@ public class OrderServiceImpl implements IOrderService {
         ordersSorted.sort(comparatorByDateOfExecution);
         printer.printMessage(MESSAGE7);
         for (Order order : ordersSorted) {
-            if (order.getStateOrder() == StateOrder.OPERATING)
-                printer.printObject(order);
+            if (order.getStateOrder() == StateOrder.OPERATING) printer.printObject(order);
         }
     }
 
@@ -109,8 +112,7 @@ public class OrderServiceImpl implements IOrderService {
         ordersSorted.sort(comparatorByDateOfOrder);
         printer.printMessage(MESSAGE6);
         for (Order order : ordersSorted) {
-            if (order.getStateOrder() == StateOrder.OPERATING)
-                printer.printObject(order);
+            if (order.getStateOrder() == StateOrder.OPERATING) printer.printObject(order);
         }
     }
 
@@ -133,5 +135,34 @@ public class OrderServiceImpl implements IOrderService {
     @Override
     public List<Order> getOrderStore() {
         return orderStore.getAll();
+    }
+
+    @Override
+    public Order getOrderExecuteMaster(Master master) {
+        Order order = new Order();
+        for (Order or : getOrderStore()) {
+            if (or.getMaster().getName().equals(master.getName())) {
+                order = or;
+            }
+        }
+        if (order.getNum() == null) {
+            System.out.println("Order with this name of master does not exist");
+            return null;
+        }
+        return order;
+    }
+
+    @Override
+    public List<Order> getOrdersIntervalTime(Date date1, Date date2) {
+        List<Order> orders = new ArrayList<Order>();
+        for (Order order : getOrderStore()) {
+            if (date1.getTime() < order.getDateOfOrder().getTime() && order.getDateOfOrder().getTime() < date2.getTime()) {
+                orders.add(order);
+            }
+        }
+        if (orders.size() == 0) {
+            System.out.println("No orders in this interval time");
+        }
+        return orders;
     }
 }

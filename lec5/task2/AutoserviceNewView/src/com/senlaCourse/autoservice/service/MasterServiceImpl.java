@@ -3,6 +3,7 @@ package com.senlaCourse.autoservice.service;
 import com.senlaCourse.autoservice.api.service.IMasterService;
 import com.senlaCourse.autoservice.api.story.IMasterStore;
 import com.senlaCourse.autoservice.entity.Master;
+import com.senlaCourse.autoservice.entity.Order;
 import com.senlaCourse.autoservice.util.comparators.master.ComparatorByNameOfMaster;
 import com.senlaCourse.autoservice.util.comparators.master.ComparatorByStateOfMaster;
 import com.senlaCourse.autoservice.stores.MasterStoreImpl;
@@ -75,5 +76,20 @@ public class MasterServiceImpl implements IMasterService {
             }
         }
         return masters;
+    }
+
+    @Override
+    public Master getMasterExecuteOrder(Order order) {
+        Master master = new Master();
+        for (Master mas : getMasterStore()) {
+            if (mas.getOrder().getNum().equals(order.getNum())) {
+                master = mas;
+            }
+        }
+        if (master.getName() == null) {
+            System.out.println("Master with this num of  order does not exist");
+            return null;
+        }
+        return master;
     }
 }

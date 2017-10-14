@@ -3,6 +3,7 @@ package builder;
 import actions.actionObject.*;
 import actions.actionsService.*;
 import actions.actionsService.master.GetAllMastersAction;
+import actions.actionsService.master.GetMasterExecutableOrderAction;
 import actions.actionsService.master.SortByNameAction;
 import actions.actionsService.master.SortByStateOfMasterAction;
 import actions.actionsService.order.*;
@@ -67,6 +68,8 @@ public class Builder {
         menuOrderService.addMenuItem(new MenuItem("Sort by date of order", new SortByDateOrderAction()));
         menuOrderService.addMenuItem(new MenuItem("Sort by date of execution order", new SortByDateExecutionAction()));
         menuOrderService.addMenuItem(new MenuItem("Sort by date of start order", new SortByDateStartAction()));
+        menuOrderService.addMenuItem(new MenuItem("Get order executable concrete master", new GetOrderExecuteMasterAction()));
+        menuOrderService.addMenuItem(new MenuItem("Get orders in interval of time", new GetOrdersIntervalTimeAction()));
         menuOrderService.addMenuItem(new MenuItem("Go Back", new GoBackAction()));
         return menuOrderService;
     }
@@ -76,6 +79,7 @@ public class Builder {
         menuMasterService.addMenuItem(new MenuItem("Get all masters", new GetAllMastersAction()));
         menuMasterService.addMenuItem(new MenuItem("Sort by name of masters", new SortByNameAction()));
         menuMasterService.addMenuItem(new MenuItem("Sort by state of masters", new SortByStateOfMasterAction()));
+        menuMasterService.addMenuItem(new MenuItem("Get master execute concrete order", new GetMasterExecutableOrderAction()));
         menuMasterService.addMenuItem(new MenuItem("Go Back", new GoBackAction()));
         return menuMasterService;
     }
