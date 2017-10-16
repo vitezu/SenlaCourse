@@ -1,6 +1,7 @@
 package com.senlaCourse.autoservice.util;
 
 import com.danco.training.TextFileWorker;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,7 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class WriterReaderFile {
-
+    private final Logger logger = Logger.getLogger(WriterReaderFile.class);
     public void worker(String[] mas, String file) {
 
         final String TEST_FILE = file;
@@ -20,7 +21,7 @@ public class WriterReaderFile {
             try {
                 Files.createFile(filePath);
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("Can not create file", e);
             }
         }
 
