@@ -15,20 +15,6 @@ import java.util.List;
 
 public class MasterServiceImpl implements IMasterService {
 
-    private static MasterServiceImpl instance = null;
-
-    protected MasterServiceImpl() {
-    }
-
-    ;
-
-    public static MasterServiceImpl getInstance() {
-        if (instance == null) {
-            instance = new MasterServiceImpl();
-        }
-        return instance;
-    }
-
     private Printer printer = new Printer();
     private final ComparatorByNameOfMaster comparatorByNameOfMaster = new ComparatorByNameOfMaster();
     private final ComparatorByStateOfMaster comparatorByStateOfMaster = new ComparatorByStateOfMaster();

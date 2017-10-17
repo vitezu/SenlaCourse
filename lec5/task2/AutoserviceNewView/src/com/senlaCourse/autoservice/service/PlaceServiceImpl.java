@@ -1,6 +1,7 @@
 package com.senlaCourse.autoservice.service;
 
 import com.senlaCourse.autoservice.api.service.IPlaceService;
+import com.senlaCourse.autoservice.controller.ControllerImpl;
 import com.senlaCourse.autoservice.entity.Place;
 import com.senlaCourse.autoservice.stores.PlaceStoreImpl;
 import com.senlaCourse.autoservice.util.Printer;
@@ -9,17 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlaceServiceImpl implements IPlaceService {
-
-    private static PlaceServiceImpl instance = null;
-
-    protected PlaceServiceImpl() {};
-
-    public static PlaceServiceImpl getInstance() {
-        if (instance == null){
-            instance = new PlaceServiceImpl();
-        }
-        return instance;
-    }
 
     private PlaceStoreImpl placeStore = new PlaceStoreImpl();
 
@@ -41,8 +31,8 @@ public class PlaceServiceImpl implements IPlaceService {
         Integer countFreeMaster;
 
         countFreePlace = getFreePlaces().size();
-        countFreeMaster = MasterServiceImpl.getInstance().getFreeMasters().size();
-        return (countFreeMaster + countFreePlace)/2;
+        countFreeMaster = ControllerImpl.getInstance().getFreeMasters().size();
+        return (countFreeMaster + countFreePlace) / 2;
     }
 
     @Override
