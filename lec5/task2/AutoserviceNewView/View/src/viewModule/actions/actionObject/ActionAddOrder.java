@@ -1,16 +1,23 @@
 package viewModule.actions.actionObject;
 
+import com.senlaCourse.autoservice.util.Printer;
 import viewModule.api.IAction;
 import com.senlaCourse.autoservice.entity.Master;
 import com.senlaCourse.autoservice.entity.Order;
 import com.senlaCourse.autoservice.entity.Place;
 import com.senlaCourse.autoservice.controller.ControllerImpl;
+import viewModule.util.InputCheck;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
 
 public class ActionAddOrder implements IAction {
+
+    private InputCheck inputCheck = new InputCheck();
+    private final String MESSAGE1 = "Enter uniq number of order";
+    private final String MESSAGE2 = "Enter price of order";
+    private Printer printer = new Printer();
+
 
     @Override
     public void execute() {
@@ -20,13 +27,9 @@ public class ActionAddOrder implements IAction {
 
         Date dateNow = new Date();
 
-        System.out.println("Enter uniq number of order");
-        Scanner scanner = new Scanner(System.in);
-        Integer num = scanner.nextInt();
+        Integer num = inputCheck.getInt(MESSAGE1);
 
-        System.out.println("Enter price of order");
-        scanner = new Scanner(System.in);
-        Float price = scanner.nextFloat();
+        Float price = inputCheck.getFloat(MESSAGE2);
 
         Order newOrder = new Order(num, dateNow, dateNow, price);
 
@@ -67,7 +70,7 @@ public class ActionAddOrder implements IAction {
 
             com.senlaCourse.autoservice.controller.ControllerImpl.getInstance().addOrder(newOrder);
         } else {
-            System.out.println("Place or master not exist!!!");
+            printer.printMessage("Place or master not exist!!!");
         }
     }
 }

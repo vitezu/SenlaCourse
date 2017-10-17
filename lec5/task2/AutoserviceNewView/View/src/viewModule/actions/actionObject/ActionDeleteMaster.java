@@ -3,19 +3,16 @@ package viewModule.actions.actionObject;
 import viewModule.api.IAction;
 import com.senlaCourse.autoservice.controller.ControllerImpl;
 import com.senlaCourse.autoservice.entity.Master;
-
-import java.util.Scanner;
+import viewModule.util.InputCheck;
 
 public class ActionDeleteMaster implements IAction {
+    private InputCheck inputCheck = new InputCheck();
+    private final String MESSAGE = "Enter uniq nume of master for deleting";
 
     @Override
     public void execute() {
-        System.out.println("Enter uniq name of master for deleting");
-        Scanner scanner = new Scanner(System.in);
-        String name = scanner.next();
-
+        String name = inputCheck.getString(MESSAGE);
         Master master = new Master(name);
-
         ControllerImpl.getInstance().deleteMaster(master);
     }
 }

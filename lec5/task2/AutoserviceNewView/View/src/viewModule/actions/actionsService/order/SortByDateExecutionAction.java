@@ -5,9 +5,10 @@ import com.senlaCourse.autoservice.controller.ControllerImpl;
 import com.senlaCourse.autoservice.util.Printer;
 
 public class SortByDateExecutionAction implements IAction {
+    Printer printer = new Printer();
+
     @Override
     public void execute() {
-        Printer printer = new Printer();
         printer.printOrders("Sort by date of execution", ControllerImpl.getInstance().sortByDateOfExecution());
     }
 }

@@ -8,10 +8,10 @@ import com.senlaCourse.autoservice.util.Printer;
 import java.util.List;
 
 public class GetAllOrdersAction implements IAction {
+    Printer printer = new Printer();
 
     @Override
     public void execute() {
-        Printer printer = new Printer();
         List<Order> orders = ControllerImpl.getInstance().getOrderStore();
         printer.printOrders("All orders", orders);
     }

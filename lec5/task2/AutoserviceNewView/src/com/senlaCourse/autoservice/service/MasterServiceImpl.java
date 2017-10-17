@@ -15,8 +15,7 @@ import java.util.List;
 
 public class MasterServiceImpl implements IMasterService {
 
-    private Printer printer = new Printer();
-    private final ComparatorByNameOfMaster comparatorByNameOfMaster = new ComparatorByNameOfMaster();
+        private final ComparatorByNameOfMaster comparatorByNameOfMaster = new ComparatorByNameOfMaster();
     private final ComparatorByStateOfMaster comparatorByStateOfMaster = new ComparatorByStateOfMaster();
     private IMasterStore masterStore = new MasterStoreImpl();
 
