@@ -6,9 +6,14 @@ import java.io.*;
 import java.util.Properties;
 
 public class Config {
+    private Logger logger = Logger.getLogger(Config.class);
+    private Properties props;
+    private FileReader reader;
+
     private static Config instance = null;
 
-    protected Config() {
+    public Config() {
+        loadProperties();
     }
 
     public static Config getInstance() {
@@ -18,26 +23,27 @@ public class Config {
         return instance;
     }
 
-    private Logger logger = Logger.getLogger(Config.class);
-    private Properties props;
-
-    public Properties getProperty() {
-        return this.props;
-    }
-
     public void loadProperties() {
 
         File configFile = new File("Config\\resources\\config.properties");
-
         try {
-            FileReader reader = new FileReader(configFile);
+            reader = new FileReader(configFile);
             props = new Properties();
             props.load(reader);
-            reader.close();
         } catch (FileNotFoundException ex) {
             logger.error("File does not exist");
         } catch (IOException ex) {
             logger.error("IO error");
+        } finally {
+            try {
+                reader.close();
+            } catch (IOException e) {
+                logger.error("IO error");
+            }
         }
+    }
+
+    public Boolean getBoolProperties(String key) {
+        return Boolean.valueOf(props.getProperty(key));
     }
 }

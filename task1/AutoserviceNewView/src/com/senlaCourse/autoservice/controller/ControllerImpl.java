@@ -20,7 +20,6 @@ import com.senlaCourse.autoservice.util.comparators.order.ComparatorByDateOfStar
 import com.senlaCourse.autoservice.util.comparators.order.ComparatorByPriceOfOrder;
 import config.Config;
 
-import java.sql.Time;
 import java.util.*;
 
 public class ControllerImpl implements IController {
@@ -122,9 +121,7 @@ public class ControllerImpl implements IController {
 
     @Override
     public void deleteOrder(Order order) {
-        Config.getInstance().loadProperties();
-        props = Config.getInstance().getProperty();
-        Boolean permit = Boolean.valueOf(props.getProperty("permitDelOrder"));
+        Boolean permit = Config.getInstance().getBoolProperties("permitDelOrder");
         if (permit) {
 
             orderStore.delete(order);
@@ -247,9 +244,7 @@ public class ControllerImpl implements IController {
 
     @Override
     public void addPlace(Place place) {
-        Config.getInstance().loadProperties();
-        props = Config.getInstance().getProperty();
-        Boolean permit = Boolean.valueOf(props.getProperty("permitEditFreePlace"));
+        Boolean permit = Config.getInstance().getBoolProperties("permitEditFreePlace");
         if (permit) {
             placeStore.add(place);
         } else {
@@ -260,8 +255,7 @@ public class ControllerImpl implements IController {
     @Override
     public void deletePlace(Place place) {
         Config.getInstance().loadProperties();
-        props = Config.getInstance().getProperty();
-        Boolean permit = Boolean.valueOf(props.getProperty("permitEditFreePlace"));
+        Boolean permit = Config.getInstance().getBoolProperties("permitEditFreePlace");
         if (permit) {
             placeStore.delete(place);
         } else {
@@ -297,9 +291,7 @@ public class ControllerImpl implements IController {
 
     @Override
     public void shiftTimeEnd(Date time, Order order) {
-        Config.getInstance().loadProperties();
-        props = Config.getInstance().getProperty();
-        Boolean permit = Boolean.valueOf(props.getProperty("enableShiftTime"));
+        Boolean permit = Config.getInstance().getBoolProperties("enableShiftTime");
         if (permit) {
             Long time1 = order.getDateOfExecution().getTime();
             Long time2 = time.getTime();

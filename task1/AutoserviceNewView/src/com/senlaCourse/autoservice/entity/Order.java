@@ -2,10 +2,11 @@ package com.senlaCourse.autoservice.entity;
 
 import com.senlaCourse.autoservice.util.StateOrder;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Order {
+public class Order implements Serializable {
     private Integer num;
     private StateOrder stateOrder;
     private Date dateOfOrder;
