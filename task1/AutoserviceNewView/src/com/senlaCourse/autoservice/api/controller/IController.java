@@ -64,5 +64,5 @@ public interface IController {
 
     List<Place> getPlaceStore ();
 
-    void shiftTimeEnd (Date time, Order order);
+    void shiftTimeEnd (Integer hour, Order order);
 }

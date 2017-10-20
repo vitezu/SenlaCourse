@@ -6,7 +6,8 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Order implements Serializable {
+public class Order implements Serializable, Cloneable {
+    private Integer id =0;
     private Integer num;
     private StateOrder stateOrder;
     private Date dateOfOrder;
@@ -15,6 +16,7 @@ public class Order implements Serializable {
     private Float price;
     private Master master;
     private Place place;
+    private static Integer count =0;
 
     public Order(Integer num, Date dateOfOrder, Date dateOfStart, Float price) {
         this.num = num;
@@ -26,13 +28,28 @@ public class Order implements Serializable {
         calendar.setTime(dateOfStart);
         calendar.add(Calendar.DATE, 1);
         this.dateOfExecution = calendar.getTime();
+        this.id = count++;
     }
 
     public Order(Integer num) {
         this.num = num;
+        this.id = count++;
     }
+
     public Order() {
 
+    }
+    @Override
+    public Order clone() throws CloneNotSupportedException {
+        return (Order)super.clone();
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getNum() {
@@ -102,7 +119,8 @@ public class Order implements Serializable {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Order{");
-        sb.append("num=").append(num);
+        sb.append("id=").append(id);
+        sb.append(", num=").append(num);
         sb.append(", stateOrder=").append(stateOrder);
         sb.append(", dateOfOrder=").append(dateOfOrder);
         sb.append(", dateOfExecution=").append(dateOfExecution);

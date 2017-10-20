@@ -8,7 +8,6 @@ import java.util.Properties;
 public class Config {
     private Logger logger = Logger.getLogger(Config.class);
     private Properties props;
-    private FileReader reader;
 
     private static Config instance = null;
 
@@ -26,20 +25,13 @@ public class Config {
     public void loadProperties() {
 
         File configFile = new File("Config\\resources\\config.properties");
-        try {
-            reader = new FileReader(configFile);
+        try (FileReader reader = new FileReader(configFile)) {
             props = new Properties();
             props.load(reader);
         } catch (FileNotFoundException ex) {
             logger.error("File does not exist");
         } catch (IOException ex) {
             logger.error("IO error");
-        } finally {
-            try {
-                reader.close();
-            } catch (IOException e) {
-                logger.error("IO error");
-            }
         }
     }
 

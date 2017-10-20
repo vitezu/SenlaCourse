@@ -61,6 +61,7 @@ public class Builder {
         menuOrderService.addMenuItem(new MenuItem("Get order executable concrete master", new GetOrderExecuteMasterAction(), menuOrderService));
         menuOrderService.addMenuItem(new MenuItem("Get orders in interval of time", new GetOrdersIntervalTimeAction(), menuOrderService));
         menuOrderService.addMenuItem(new MenuItem("Shift time execution", new ShiftTimeExecutionAction(), menuOrderService));
+        menuOrderService.addMenuItem(new MenuItem("Clone object", new CloneOrderAction(), menuOrderService));
         menuOrderService.addMenuItem(new MenuItem("Go Back", getRootMenu()));
         return menuOrderService;
     }

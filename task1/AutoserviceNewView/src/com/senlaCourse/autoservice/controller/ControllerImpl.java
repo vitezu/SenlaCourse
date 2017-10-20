@@ -19,10 +19,31 @@ import com.senlaCourse.autoservice.util.comparators.order.ComparatorByDateOfOrde
 import com.senlaCourse.autoservice.util.comparators.order.ComparatorByDateOfStart;
 import com.senlaCourse.autoservice.util.comparators.order.ComparatorByPriceOfOrder;
 import config.Config;
+import org.apache.log4j.Logger;
 
 import java.util.*;
 
+
 public class ControllerImpl implements IController {
+    private final String MESSAGE5 = "Sorted by price of operation order";
+    private final String MESSAGE6 = "Sorted by date of operation order";
+    private final String MESSAGE7 = "Sorted by date of execution operation order";
+
+    private final ComparatorByDateOfOrder comparatorByDateOfOrder = new ComparatorByDateOfOrder();
+    private final ComparatorByPriceOfOrder comparatorByPriceOfOrder = new ComparatorByPriceOfOrder();
+    private final ComparatorByDateOfStart comparatorByDateOfStart = new ComparatorByDateOfStart();
+    private final ComparatorByDateOfExecution comparatorByDateOfExecution = new ComparatorByDateOfExecution();
+    private final ComparatorByNameOfMaster comparatorByNameOfMaster = new ComparatorByNameOfMaster();
+    private final ComparatorByStateOfMaster comparatorByStateOfMaster = new ComparatorByStateOfMaster();
+
+    private Calendar calendar = Calendar.getInstance();
+    private Printer printer = new Printer();
+    private IOrderStore orderStore = new OrderStoreImpl();
+    private PlaceStoreImpl placeStore = new PlaceStoreImpl();
+    private IMasterStore masterStore = new MasterStoreImpl();
+    private DateUtil dateUtil = new DateUtil();
+    private Properties props = new Properties();
+    private Logger logger = Logger.getLogger(ControllerImpl.class);
 
     private static ControllerImpl instance = null;
 
@@ -36,23 +57,6 @@ public class ControllerImpl implements IController {
         return instance;
     }
 
-    private final String MESSAGE5 = "Sorted by price of operation order";
-    private final String MESSAGE6 = "Sorted by date of operation order";
-    private final String MESSAGE7 = "Sorted by date of execution operation order";
-
-    private final ComparatorByDateOfOrder comparatorByDateOfOrder = new ComparatorByDateOfOrder();
-    private final ComparatorByPriceOfOrder comparatorByPriceOfOrder = new ComparatorByPriceOfOrder();
-    private final ComparatorByDateOfStart comparatorByDateOfStart = new ComparatorByDateOfStart();
-    private final ComparatorByDateOfExecution comparatorByDateOfExecution = new ComparatorByDateOfExecution();
-    private final ComparatorByNameOfMaster comparatorByNameOfMaster = new ComparatorByNameOfMaster();
-    private final ComparatorByStateOfMaster comparatorByStateOfMaster = new ComparatorByStateOfMaster();
-
-    private Printer printer = new Printer();
-    private IOrderStore orderStore = new OrderStoreImpl();
-    private PlaceStoreImpl placeStore = new PlaceStoreImpl();
-    private IMasterStore masterStore = new MasterStoreImpl();
-    private DateUtil dateUtil = new DateUtil();
-    private Properties props = new Properties();
 
     @Override
     public void addMaster(Master master) {
@@ -290,15 +294,53 @@ public class ControllerImpl implements IController {
     }
 
     @Override
-    public void shiftTimeEnd(Date time, Order order) {
-        Boolean permit = Config.getInstance().getBoolProperties("enableShiftTime");
-        if (permit) {
-            Long time1 = order.getDateOfExecution().getTime();
-            Long time2 = time.getTime();
-            Long shiftTime = time1 + time2;
-            order.setDateOfExecution(dateUtil.convertToDate(shiftTime));
-        } else {
-            System.out.println("Please, permit for shift time");
+    public void shiftTimeEnd(Integer hour, Order order) {
+        {
+            int index = 0;
+            boolean flag = false;
+            for (int i = 0; i < getOrderStore().size(); i++) {
+                if (getOrderStore().get(i).getNum() == order.getNum()) {
+                    flag = true;
+                    index = i;
+                }
+            }
+            if (flag) {
+                Boolean permit = Config.getInstance().getBoolProperties("enableShiftTime");
+                if (permit) {
+                    calendar.setTime(getOrderStore().get(index).getDateOfExecution());
+                    calendar.add(Calendar.HOUR, hour);
+                    getOrderStore().get(index).setDateOfExecution(calendar.getTime());
+                } else {
+                    System.out.println("Please, permit for shift time");
+                }
+            } else {
+                System.out.println("Num order is not correct");
+            }
+        }
+    }
+    public void cloneOrder (Order order) {
+        {
+            Integer index = 0;
+            boolean flag = false;
+            for (int i=0; i<getOrderStore().size(); i++){
+                if (getOrderStore().get(i).getNum() == order.getNum()){
+                    flag = true;
+                    index = i;
+                }
+            }
+            if (flag) {
+                try {
+                    Order clonedOrder = (Order) getOrderStore().get(index).clone();
+                    clonedOrder.setId(getOrderStore().get(getOrderStore().size()-1).getId()+1);
+                    System.out.println("Clone is successfully");
+                    addOrder(clonedOrder);
+                } catch (CloneNotSupportedException e) {
+                    logger.error("Order can not cloned");
+                }
+            }
+            else {
+                System.out.println("You cannot clone this order!");
+            }
         }
     }
 }

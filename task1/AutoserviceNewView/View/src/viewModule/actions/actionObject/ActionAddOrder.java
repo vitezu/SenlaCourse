@@ -68,7 +68,7 @@ public class ActionAddOrder implements IAction {
             newOrder.setPlace(place);
             master.setOrder(newOrder);
 
-            com.senlaCourse.autoservice.controller.ControllerImpl.getInstance().addOrder(newOrder);
+            ControllerImpl.getInstance().addOrder(newOrder);
         } else {
             printer.printMessage("Place or master not exist!!!");
         }
