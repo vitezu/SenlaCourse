@@ -38,4 +38,8 @@ public class Config {
     public Boolean getBoolProperties(String key) {
         return Boolean.valueOf(props.getProperty(key));
     }
+
+    public String getStringProperties (String key) {
+        return props.getProperty(key);
+    }
 }

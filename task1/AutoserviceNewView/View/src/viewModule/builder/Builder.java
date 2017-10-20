@@ -1,10 +1,7 @@
 package viewModule.builder;
 
 import viewModule.actions.actionObject.*;
-import viewModule.actions.actionsService.master.GetAllMastersAction;
-import viewModule.actions.actionsService.master.GetMasterExecutableOrderAction;
-import viewModule.actions.actionsService.master.SortByNameAction;
-import viewModule.actions.actionsService.master.SortByStateOfMasterAction;
+import viewModule.actions.actionsService.master.*;
 import viewModule.actions.actionsService.order.*;
 import viewModule.actions.actionsService.place.CalcFreePlaceAction;
 import viewModule.actions.actionsService.place.GetAllPlacesAction;
@@ -72,6 +69,8 @@ public class Builder {
         menuMasterService.addMenuItem(new MenuItem("Sort by name of masters", new SortByNameAction(), menuMasterService));
         menuMasterService.addMenuItem(new MenuItem("Sort by state of masters", new SortByStateOfMasterAction(), menuMasterService));
         menuMasterService.addMenuItem(new MenuItem("Get master execute concrete order", new GetMasterExecutableOrderAction(), menuMasterService));
+        menuMasterService.addMenuItem(new MenuItem("Serialize master", new SerializeMasterAction(), menuMasterService));
+        menuMasterService.addMenuItem(new MenuItem("Deserialize master", new DeserializeMasterAction(), menuMasterService));
         menuMasterService.addMenuItem(new MenuItem("Go Back", getRootMenu()));
         return menuMasterService;
     }

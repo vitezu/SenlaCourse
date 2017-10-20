@@ -18,6 +18,7 @@ import com.senlaCourse.autoservice.util.comparators.order.ComparatorByDateOfExec
 import com.senlaCourse.autoservice.util.comparators.order.ComparatorByDateOfOrder;
 import com.senlaCourse.autoservice.util.comparators.order.ComparatorByDateOfStart;
 import com.senlaCourse.autoservice.util.comparators.order.ComparatorByPriceOfOrder;
+import com.senlaCourse.autoservice.util.serializ.Serialization;
 import config.Config;
 import org.apache.log4j.Logger;
 
@@ -44,6 +45,7 @@ public class ControllerImpl implements IController {
     private DateUtil dateUtil = new DateUtil();
     private Properties props = new Properties();
     private Logger logger = Logger.getLogger(ControllerImpl.class);
+    private Serialization ser;
 
     private static ControllerImpl instance = null;
 
@@ -318,12 +320,13 @@ public class ControllerImpl implements IController {
             }
         }
     }
-    public void cloneOrder (Order order) {
+
+    public void cloneOrder(Order order) {
         {
             Integer index = 0;
             boolean flag = false;
-            for (int i=0; i<getOrderStore().size(); i++){
-                if (getOrderStore().get(i).getNum() == order.getNum()){
+            for (int i = 0; i < getOrderStore().size(); i++) {
+                if (getOrderStore().get(i).getNum() == order.getNum()) {
                     flag = true;
                     index = i;
                 }
@@ -331,16 +334,54 @@ public class ControllerImpl implements IController {
             if (flag) {
                 try {
                     Order clonedOrder = (Order) getOrderStore().get(index).clone();
-                    clonedOrder.setId(getOrderStore().get(getOrderStore().size()-1).getId()+1);
+                    clonedOrder.setId(getOrderStore().get(getOrderStore().size() - 1).getId() + 1);
                     System.out.println("Clone is successfully");
                     addOrder(clonedOrder);
                 } catch (CloneNotSupportedException e) {
                     logger.error("Order can not cloned");
                 }
-            }
-            else {
+            } else {
                 System.out.println("You cannot clone this order!");
             }
         }
+    }
+
+    public void serializeMaster(Integer id) {
+        ser = new Serialization();
+        ser.serialize(getMasterById(id), "masterSerial");
+    }
+
+    public Master deserializeMaster() {
+        Serialization ser = new Serialization();
+        return (Master) ser.deserialize("masterSerial");
+    }
+
+    //    public void serializePlace(Place place) {
+//
+//        ser.serialize(place, "placeSerial");
+//    }
+//
+//    public Place deserializePlace() {
+//
+//        return (Place) ser.deserialize("placeSerial");
+//    }
+//
+//    public void serializeOrder(Order order) {
+//
+//        ser.serialize(order, "orderSerial");
+//    }
+//
+//    public Order deserializeOrder() {
+//
+//        return (Order) ser.deserialize("orderSerial");
+//    }
+//
+    public Master getMasterById(Integer id) {
+        Master newMaster = new Master();
+        for (Master master : getMasterStore())
+            if (master.getId() == id) {
+                newMaster = master;
+            }
+        return newMaster;
     }
 }

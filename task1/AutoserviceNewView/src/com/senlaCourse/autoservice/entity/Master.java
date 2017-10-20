@@ -1,14 +1,18 @@
 package com.senlaCourse.autoservice.entity;
 
-public class Master {
+import java.io.Serializable;
 
+public class Master implements Serializable {
+    private Integer id = 0;
     private String name;
     private Boolean stateFree;
     private Order order;
+    private static Integer count = 0;
 
     public Master(String name) {
         this.name = name;
         this.stateFree = true;
+        id = count++;
     }
 
     public Master() {
@@ -17,6 +21,14 @@ public class Master {
     public void setOrder(Order order) {
         this.order = order;
         stateFree = false;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -42,6 +54,7 @@ public class Master {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Master{");
+        sb.append("id='").append(id).append('\'');
         sb.append("name='").append(name).append('\'');
         sb.append(", stateFree=").append(stateFree);
         sb.append(", order=").append(order);

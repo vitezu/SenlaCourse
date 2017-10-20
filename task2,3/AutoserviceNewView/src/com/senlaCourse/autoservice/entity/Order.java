@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Order implements Cloneable, Serializable {
+public class Order implements Serializable {
     private Integer num;
     private StateOrder stateOrder;
     private Date dateOfOrder;
