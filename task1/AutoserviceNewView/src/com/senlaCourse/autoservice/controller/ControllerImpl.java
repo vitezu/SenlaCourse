@@ -18,7 +18,7 @@ import com.senlaCourse.autoservice.util.comparators.order.ComparatorByDateOfExec
 import com.senlaCourse.autoservice.util.comparators.order.ComparatorByDateOfOrder;
 import com.senlaCourse.autoservice.util.comparators.order.ComparatorByDateOfStart;
 import com.senlaCourse.autoservice.util.comparators.order.ComparatorByPriceOfOrder;
-import com.senlaCourse.autoservice.util.serializ.Serialization;
+import com.senlaCourse.autoservice.util.serialization.Serialization;
 import config.Config;
 import org.apache.log4j.Logger;
 
@@ -352,30 +352,30 @@ public class ControllerImpl implements IController {
     }
 
     public Master deserializeMaster() {
-        Serialization ser = new Serialization();
+        ser = new Serialization();
         return (Master) ser.deserialize("masterSerial");
     }
 
-    //    public void serializePlace(Place place) {
-//
-//        ser.serialize(place, "placeSerial");
-//    }
-//
-//    public Place deserializePlace() {
-//
-//        return (Place) ser.deserialize("placeSerial");
-//    }
-//
-//    public void serializeOrder(Order order) {
-//
-//        ser.serialize(order, "orderSerial");
-//    }
-//
-//    public Order deserializeOrder() {
-//
-//        return (Order) ser.deserialize("orderSerial");
-//    }
-//
+        public void serializePlace(Place place) {
+
+        ser.serialize(place, "placeSerial");
+    }
+
+    public Place deserializePlace() {
+
+        return (Place) ser.deserialize("placeSerial");
+    }
+
+    public void serializeOrder(Order order) {
+
+        ser.serialize(order, "orderSerial");
+    }
+
+    public Order deserializeOrder() {
+
+        return (Order) ser.deserialize("orderSerial");
+    }
+
     public Master getMasterById(Integer id) {
         Master newMaster = new Master();
         for (Master master : getMasterStore())
