@@ -18,10 +18,13 @@ import com.senlaCourse.autoservice.util.comparators.order.ComparatorByDateOfExec
 import com.senlaCourse.autoservice.util.comparators.order.ComparatorByDateOfOrder;
 import com.senlaCourse.autoservice.util.comparators.order.ComparatorByDateOfStart;
 import com.senlaCourse.autoservice.util.comparators.order.ComparatorByPriceOfOrder;
+import com.senlaCourse.autoservice.util.csv.CsvUtil;
 import com.senlaCourse.autoservice.util.serialization.Serialization;
 import config.Config;
 import org.apache.log4j.Logger;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 
@@ -356,7 +359,7 @@ public class ControllerImpl implements IController {
         return (Master) ser.deserialize("masterSerial");
     }
 
-        public void serializePlace(Place place) {
+    public void serializePlace(Place place) {
 
         ser.serialize(place, "placeSerial");
     }
@@ -384,4 +387,33 @@ public class ControllerImpl implements IController {
             }
         return newMaster;
     }
+
+    public void exportMaster(Master master) {
+        String csvFile = "master.csv";
+
+        try {
+            try (FileWriter writer = new FileWriter(csvFile)) {
+
+                List<Master> masters = ControllerImpl.getInstance().getMasterStore();
+
+                CsvUtil.writeLine(writer, Arrays.asList("id", "name", "StateFree"));
+
+                for (Master d : masters) {
+
+                    List<String> list = new ArrayList<>();
+                    list.add(d.getId().toString());
+                    list.add(d.getName());
+                    list.add(String.valueOf(d.getStateFree()));
+
+                    CsvUtil.writeLine(writer, list);
+                    writer.flush();
+                    //try custom separator and quote.
+                    //CSVUtils.writeLine(writer, list, '|', '\"');
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
+

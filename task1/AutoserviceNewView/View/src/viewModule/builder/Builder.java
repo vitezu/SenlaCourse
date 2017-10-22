@@ -71,6 +71,7 @@ public class Builder {
         menuMasterService.addMenuItem(new MenuItem("Get master execute concrete order", new GetMasterExecutableOrderAction(), menuMasterService));
         menuMasterService.addMenuItem(new MenuItem("Serialize master", new SerializeMasterAction(), menuMasterService));
         menuMasterService.addMenuItem(new MenuItem("Deserialize master", new DeserializeMasterAction(), menuMasterService));
+        menuMasterService.addMenuItem(new MenuItem("Export master", new ExportMasterAction(), menuMasterService));
         menuMasterService.addMenuItem(new MenuItem("Go Back", getRootMenu()));
         return menuMasterService;
     }
