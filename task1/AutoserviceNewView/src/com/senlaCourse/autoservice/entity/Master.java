@@ -15,6 +15,12 @@ public class Master implements Serializable {
         id = count++;
     }
 
+    public Master(Integer id, String name, Boolean stateFree) {
+        this.id = id;
+        this.name = name;
+        this.stateFree = stateFree;
+    }
+
     public Master() {
     }
 

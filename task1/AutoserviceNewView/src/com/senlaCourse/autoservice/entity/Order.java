@@ -31,6 +31,15 @@ public class Order implements Serializable, Cloneable {
         this.id = count++;
     }
 
+    public Order(Integer id, Integer num, Date dateOfOrder, Date dateOfExecution, Date dateOfStart, Float price) {
+        this.id = id;
+        this.num = num;
+        this.dateOfOrder = dateOfOrder;
+        this.dateOfExecution = dateOfExecution;
+        this.dateOfStart = dateOfStart;
+        this.price = price;
+    }
+
     public Order(Integer num) {
         this.num = num;
         this.id = count++;

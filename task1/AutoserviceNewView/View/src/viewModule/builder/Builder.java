@@ -3,9 +3,7 @@ package viewModule.builder;
 import viewModule.actions.actionObject.*;
 import viewModule.actions.actionsService.master.*;
 import viewModule.actions.actionsService.order.*;
-import viewModule.actions.actionsService.place.CalcFreePlaceAction;
-import viewModule.actions.actionsService.place.GetAllPlacesAction;
-import viewModule.actions.actionsService.place.GetFreePlaceAction;
+import viewModule.actions.actionsService.place.*;
 import viewModule.menu.Menu;
 import viewModule.menuItems.MenuItem;
 
@@ -44,6 +42,8 @@ public class Builder {
         menuPlaceService.addMenuItem(new MenuItem("Get all places", new GetAllPlacesAction(), menuPlaceService));
         menuPlaceService.addMenuItem(new MenuItem("Get free places", new GetFreePlaceAction(), menuPlaceService));
         menuPlaceService.addMenuItem(new MenuItem("Calculate free place", new CalcFreePlaceAction(), menuPlaceService));
+        menuPlaceService.addMenuItem(new MenuItem("Export place", new ExportPlaceAction(), menuPlaceService));
+        menuPlaceService.addMenuItem(new MenuItem("Import places", new ImportPlacesAction(), menuPlaceService));
         menuPlaceService.addMenuItem(new MenuItem("Go Back", getRootMenu()));
         return menuPlaceService;
     }
@@ -59,6 +59,8 @@ public class Builder {
         menuOrderService.addMenuItem(new MenuItem("Get orders in interval of time", new GetOrdersIntervalTimeAction(), menuOrderService));
         menuOrderService.addMenuItem(new MenuItem("Shift time execution", new ShiftTimeExecutionAction(), menuOrderService));
         menuOrderService.addMenuItem(new MenuItem("Clone object", new CloneOrderAction(), menuOrderService));
+        menuOrderService.addMenuItem(new MenuItem("Export order", new ExportOrderAction(), menuOrderService));
+        menuOrderService.addMenuItem(new MenuItem("Import orders", new ImportOrdersAction(), menuOrderService));
         menuOrderService.addMenuItem(new MenuItem("Go Back", getRootMenu()));
         return menuOrderService;
     }
@@ -72,6 +74,7 @@ public class Builder {
         menuMasterService.addMenuItem(new MenuItem("Serialize master", new SerializeMasterAction(), menuMasterService));
         menuMasterService.addMenuItem(new MenuItem("Deserialize master", new DeserializeMasterAction(), menuMasterService));
         menuMasterService.addMenuItem(new MenuItem("Export master", new ExportMasterAction(), menuMasterService));
+        menuMasterService.addMenuItem(new MenuItem("Import masters", new ImportMastersAction(), menuMasterService));
         menuMasterService.addMenuItem(new MenuItem("Go Back", getRootMenu()));
         return menuMasterService;
     }

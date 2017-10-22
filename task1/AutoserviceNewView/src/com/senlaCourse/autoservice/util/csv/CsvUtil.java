@@ -1,30 +1,19 @@
 package com.senlaCourse.autoservice.util.csv;
 
+import org.apache.log4j.Logger;
+
 import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
 
 public class CsvUtil {
-
+    private static Logger logger = Logger.getLogger(CsvUtil.class);
     private static final char DEFAULT_SEPARATOR = ',';
 
     public static void writeLine(Writer w, List<String> values) {
-        try {
-            writeLine(w, values, DEFAULT_SEPARATOR, ' ');
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        writeLine(w, values, DEFAULT_SEPARATOR, ' ');
     }
 
-    public static void writeLine(Writer w, List<String> values, char separators) {
-        try {
-            writeLine(w, values, separators, ' ');
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    //https://tools.ietf.org/html/rfc4180
     private static String followCVSformat(String value) {
 
         String result = value;
@@ -35,11 +24,9 @@ public class CsvUtil {
 
     }
 
-    public static void writeLine(Writer w, List<String> values, char separators, char customQuote) throws IOException {
+    public static void writeLine(Writer w, List<String> values, char separators, char customQuote) {
 
         boolean first = true;
-
-        //default customQuote is empty
 
         if (separators == ' ') {
             separators = DEFAULT_SEPARATOR;
@@ -59,6 +46,10 @@ public class CsvUtil {
             first = false;
         }
         sb.append("\n");
-        w.append(sb.toString());
+        try {
+            w.append(sb.toString());
+        } catch (IOException e) {
+            logger.error("IO error");
+        }
     }
 }

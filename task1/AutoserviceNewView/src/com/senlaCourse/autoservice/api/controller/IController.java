@@ -1,10 +1,19 @@
 package com.senlaCourse.autoservice.api.controller;
 
+import com.senlaCourse.autoservice.controller.ControllerImpl;
 import com.senlaCourse.autoservice.entity.Master;
 import com.senlaCourse.autoservice.entity.Order;
 import com.senlaCourse.autoservice.entity.Place;
+import com.senlaCourse.autoservice.util.csv.CsvUtil;
+import com.senlaCourse.autoservice.util.serialization.Serialization;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -65,4 +74,36 @@ public interface IController {
     List<Place> getPlaceStore ();
 
     void shiftTimeEnd (Integer hour, Order order);
+
+    void cloneOrder(Order order);
+
+    void serializeMaster(Integer id);
+
+    Master deserializeMaster();
+
+    void serializePlace(Place place);
+
+    Place deserializePlace();
+
+    void serializeOrder(Order order);
+
+    Order deserializeOrder();
+
+    Master getMasterById(Integer id);
+
+    Place getPlaceById(Integer id);
+
+    Order getOrderById(Integer id);
+
+    void exportMaster(Master master);
+
+    List<Master> importMasters();
+
+    void exportPlace(Place place);
+
+    List<Place> importPlaces();
+
+    void exportOrder(Order order);
+
+    List<Order> importOrders();
 }

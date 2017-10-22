@@ -20,9 +20,12 @@ import com.senlaCourse.autoservice.util.comparators.order.ComparatorByDateOfStar
 import com.senlaCourse.autoservice.util.comparators.order.ComparatorByPriceOfOrder;
 import com.senlaCourse.autoservice.util.csv.CsvUtil;
 import com.senlaCourse.autoservice.util.serialization.Serialization;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import config.Config;
 import org.apache.log4j.Logger;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
@@ -32,6 +35,9 @@ public class ControllerImpl implements IController {
     private final String MESSAGE5 = "Sorted by price of operation order";
     private final String MESSAGE6 = "Sorted by date of operation order";
     private final String MESSAGE7 = "Sorted by date of execution operation order";
+    private final String csvMaster = "master.csv";
+    private final String csvPlace = "place.csv";
+    private final String csvOrder = "order.csv";
 
     private final ComparatorByDateOfOrder comparatorByDateOfOrder = new ComparatorByDateOfOrder();
     private final ComparatorByPriceOfOrder comparatorByPriceOfOrder = new ComparatorByPriceOfOrder();
@@ -49,7 +55,6 @@ public class ControllerImpl implements IController {
     private Properties props = new Properties();
     private Logger logger = Logger.getLogger(ControllerImpl.class);
     private Serialization ser;
-
     private static ControllerImpl instance = null;
 
     protected ControllerImpl() {
@@ -324,6 +329,7 @@ public class ControllerImpl implements IController {
         }
     }
 
+    @Override
     public void cloneOrder(Order order) {
         {
             Integer index = 0;
@@ -349,36 +355,43 @@ public class ControllerImpl implements IController {
         }
     }
 
+    @Override
     public void serializeMaster(Integer id) {
         ser = new Serialization();
         ser.serialize(getMasterById(id), "masterSerial");
     }
 
+    @Override
     public Master deserializeMaster() {
         ser = new Serialization();
         return (Master) ser.deserialize("masterSerial");
     }
 
+    @Override
     public void serializePlace(Place place) {
 
         ser.serialize(place, "placeSerial");
     }
 
+    @Override
     public Place deserializePlace() {
 
         return (Place) ser.deserialize("placeSerial");
     }
 
+    @Override
     public void serializeOrder(Order order) {
 
         ser.serialize(order, "orderSerial");
     }
 
+    @Override
     public Order deserializeOrder() {
 
         return (Order) ser.deserialize("orderSerial");
     }
 
+    @Override
     public Master getMasterById(Integer id) {
         Master newMaster = new Master();
         for (Master master : getMasterStore())
@@ -388,32 +401,171 @@ public class ControllerImpl implements IController {
         return newMaster;
     }
 
+    @Override
+    public Place getPlaceById(Integer id) {
+        Place newPlace = new Place();
+        for (Place plaace : getPlaceStore())
+            if (plaace.getId() == id) {
+                newPlace = plaace;
+            }
+        return newPlace;
+    }
+
+    @Override
+    public Order getOrderById(Integer id) {
+        Order newOrder = new Order();
+        for (Order order : getOrderStore())
+            if (order.getId() == id) {
+                newOrder = order;
+            }
+        return newOrder;
+    }
+
+    @Override
     public void exportMaster(Master master) {
-        String csvFile = "master.csv";
 
-        try {
-            try (FileWriter writer = new FileWriter(csvFile)) {
+        try (FileWriter writer = new FileWriter(csvMaster)) {
 
-                List<Master> masters = ControllerImpl.getInstance().getMasterStore();
+            List<Master> masters = ControllerImpl.getInstance().getMasterStore();
 
-                CsvUtil.writeLine(writer, Arrays.asList("id", "name", "StateFree"));
+            CsvUtil.writeLine(writer, Arrays.asList("id", "name", "StateFree"));
 
-                for (Master d : masters) {
+            for (Master m : masters) {
 
-                    List<String> list = new ArrayList<>();
-                    list.add(d.getId().toString());
-                    list.add(d.getName());
-                    list.add(String.valueOf(d.getStateFree()));
+                List<String> list = new ArrayList<>();
+                list.add(String.valueOf(m.getId()));
+                list.add(m.getName());
+                list.add(String.valueOf(m.getStateFree()));
 
-                    CsvUtil.writeLine(writer, list);
-                    writer.flush();
-                    //try custom separator and quote.
-                    //CSVUtils.writeLine(writer, list, '|', '\"');
+                CsvUtil.writeLine(writer, list);
+            }
+        } catch (IOException e) {
+            logger.error("IO error");
+        }
+    }
+
+    @Override
+    public List<Master> importMasters() {
+
+        String line = "";
+        String cvsSplitBy = ",";
+        List<Master> listMasters = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(csvMaster))) {
+
+            br.readLine();
+            while ((line = br.readLine()) != null) {
+
+                String[] masters = line.split(cvsSplitBy);
+
+                if (masters.length > 0) {
+                    Master mas = new Master(Integer.parseInt(masters[0]), masters[1], Boolean.parseBoolean(masters[2]));
+                    listMasters.add(mas);
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("IO error");
         }
+        return listMasters;
+    }
+
+    @Override
+    public void exportPlace(Place place) {
+
+        try (FileWriter writer = new FileWriter(csvPlace)) {
+
+            List<Place> places = ControllerImpl.getInstance().getPlaceStore();
+
+            CsvUtil.writeLine(writer, Arrays.asList("id", "numPlace", "StateFree"));
+
+            for (Place m : places) {
+
+                List<String> list = new ArrayList<>();
+                list.add(String.valueOf(m.getId()));
+                list.add(String.valueOf(m.getNumPlace()));
+                list.add(String.valueOf(m.getStateFree()));
+
+                CsvUtil.writeLine(writer, list);
+            }
+        } catch (IOException e) {
+            logger.error("IO error");
+        }
+    }
+
+    @Override
+    public List<Place> importPlaces() {
+
+        String line = "";
+        String cvsSplitBy = ",";
+        List<Place> listPlaces = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(csvPlace))) {
+
+            br.readLine();
+            while ((line = br.readLine()) != null) {
+
+                String[] places = line.split(cvsSplitBy);
+
+                if (places.length > 0) {
+                    Place pl = new Place(Integer.parseInt(places[0]), Integer.parseInt(places[1]), Boolean.parseBoolean(places[2]));
+                    listPlaces.add(pl);
+                }
+            }
+        } catch (IOException e) {
+            logger.error("IO error");
+        }
+        return listPlaces;
+    }
+
+    @Override
+    public void exportOrder(Order order) {
+
+        try (FileWriter writer = new FileWriter(csvOrder)) {
+
+            List<Order> orders = ControllerImpl.getInstance().getOrderStore();
+
+            CsvUtil.writeLine(writer, Arrays.asList("id", "numOrder", "DateOfOrder", "DateOfStart" + "DateOfExecution", "Price"));
+
+            for (Order m : orders) {
+
+                List<String> list = new ArrayList<>();
+                list.add(String.valueOf(m.getId()));
+                list.add(String.valueOf(m.getNum()));
+                list.add(String.valueOf(m.getDateOfOrder()));
+                list.add(String.valueOf(m.getDateOfStart()));
+                list.add(String.valueOf(m.getDateOfExecution()));
+                list.add(String.valueOf(m.getPrice()));
+
+                CsvUtil.writeLine(writer, list);
+            }
+        } catch (IOException e) {
+            logger.error("IO error");
+        }
+    }
+
+    @Override
+    public List<Order> importOrders() {
+
+        String line = "";
+        String cvsSplitBy = ",";
+        List<Order> listOrders = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(csvOrder))) {
+
+            br.readLine();
+            while ((line = br.readLine()) != null) {
+
+                String[] orders = line.split(cvsSplitBy);
+
+                if (orders.length > 0) {
+                    Order o = new Order(Integer.parseInt(orders[0]), Integer.parseInt(orders[1]), dateUtil.create(orders[2]), dateUtil.create(orders[3]), dateUtil.create(orders[4]), Float.parseFloat(orders[5]));
+                    listOrders.add(o);
+                }
+            }
+        } catch (IOException e) {
+            logger.error("IO error");
+        }
+        return listOrders;
     }
 }
 
