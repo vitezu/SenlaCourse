@@ -446,21 +446,27 @@ public class ControllerImpl implements IController {
 
     @Override
     public List<Master> importMasters() {
-
+        List<Master> listMasters = getMasterStore();
         String line = "";
         String cvsSplitBy = ",";
-        List<Master> listMasters = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvMaster))) {
-
             br.readLine();
             while ((line = br.readLine()) != null) {
-
                 String[] masters = line.split(cvsSplitBy);
-
+                Boolean flag = false;
                 if (masters.length > 0) {
                     Master mas = new Master(Integer.parseInt(masters[0]), masters[1], Boolean.parseBoolean(masters[2]));
-                    listMasters.add(mas);
+                    for (Master master : listMasters) {
+                        if (master.getId() == Integer.parseInt(masters[0])) {
+                            flag = true;
+                            listMasters.set(listMasters.indexOf(master), mas);
+                            break;
+                        }
+                    }
+                    if (!flag) {
+                        addMaster(mas);
+                    }
                 }
             }
         } catch (IOException e) {
@@ -494,10 +500,9 @@ public class ControllerImpl implements IController {
 
     @Override
     public List<Place> importPlaces() {
-
+        List<Place> listPlaces = getPlaceStore();
         String line = "";
         String cvsSplitBy = ",";
-        List<Place> listPlaces = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvPlace))) {
 
@@ -507,8 +512,18 @@ public class ControllerImpl implements IController {
                 String[] places = line.split(cvsSplitBy);
 
                 if (places.length > 0) {
+                    Boolean flag = false;
                     Place pl = new Place(Integer.parseInt(places[0]), Integer.parseInt(places[1]), Boolean.parseBoolean(places[2]));
-                    listPlaces.add(pl);
+                    for (Place place : listPlaces) {
+                        if (place.getId() == Integer.parseInt(places[0])) {
+                            listPlaces.set(listPlaces.indexOf(place), pl);
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if (!flag) {
+                        listPlaces.add(pl);
+                    }
                 }
             }
         } catch (IOException e) {
@@ -524,7 +539,7 @@ public class ControllerImpl implements IController {
 
             List<Order> orders = ControllerImpl.getInstance().getOrderStore();
 
-            CsvUtil.writeLine(writer, Arrays.asList("id", "numOrder", "DateOfOrder", "DateOfStart" + "DateOfExecution", "Price"));
+            CsvUtil.writeLine(writer, Arrays.asList("id", "numOrder", "DateOfOrder", "DateOfStart", "DateOfExecution", "Price"));
 
             for (Order m : orders) {
 
@@ -548,7 +563,7 @@ public class ControllerImpl implements IController {
 
         String line = "";
         String cvsSplitBy = ",";
-        List<Order> listOrders = new ArrayList<>();
+        List<Order> listOrders = getOrderStore();
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvOrder))) {
 
@@ -556,10 +571,19 @@ public class ControllerImpl implements IController {
             while ((line = br.readLine()) != null) {
 
                 String[] orders = line.split(cvsSplitBy);
-
+                Boolean flag = false;
                 if (orders.length > 0) {
                     Order o = new Order(Integer.parseInt(orders[0]), Integer.parseInt(orders[1]), dateUtil.create(orders[2]), dateUtil.create(orders[3]), dateUtil.create(orders[4]), Float.parseFloat(orders[5]));
-                    listOrders.add(o);
+                    for (Order order : listOrders) {
+                        if (order.getId() == Integer.parseInt(orders[0])) {
+                            listOrders.set(listOrders.indexOf(order), o);
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if (!flag) {
+                        listOrders.add(o);
+                    }
                 }
             }
         } catch (IOException e) {
