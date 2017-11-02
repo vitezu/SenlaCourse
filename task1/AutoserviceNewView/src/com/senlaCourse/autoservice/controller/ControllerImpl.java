@@ -20,8 +20,7 @@ import com.senlaCourse.autoservice.util.comparators.order.ComparatorByDateOfStar
 import com.senlaCourse.autoservice.util.comparators.order.ComparatorByPriceOfOrder;
 import com.senlaCourse.autoservice.util.csv.CsvUtil;
 import com.senlaCourse.autoservice.util.serialization.Serialization;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import config.Config;
+import com.senlaCourse.config.Config;
 import org.apache.log4j.Logger;
 
 import java.io.BufferedReader;

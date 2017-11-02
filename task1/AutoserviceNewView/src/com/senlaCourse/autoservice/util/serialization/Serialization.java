@@ -2,7 +2,7 @@ package com.senlaCourse.autoservice.util.serialization;
 
 import com.senlaCourse.autoservice.controller.ControllerImpl;
 import com.senlaCourse.autoservice.util.Printer;
-import config.Config;
+import com.senlaCourse.config.Config;
 import org.apache.log4j.Logger;
 
 import java.io.*;
