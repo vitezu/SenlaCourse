@@ -21,13 +21,12 @@ public class PropertyManager {
             try (FileInputStream fis = new FileInputStream(configFile)) {
                 props = new Properties();
                 props.load(fis);
-            } catch (FileNotFoundException ex) {
-                logger.error("File does not exist", ex);
+                propsMap.put(key,props.getProperty(key));
             } catch (IOException e) {
                 logger.error("Can not read file", e);
             }
-            propsMap.put(key, props.getProperty(key));
         }
-        return propsMap.get(key);
+       return propsMap.get(key);
     }
 }
+

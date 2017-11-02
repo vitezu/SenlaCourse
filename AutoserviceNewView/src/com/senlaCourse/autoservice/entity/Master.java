@@ -5,11 +5,11 @@ import com.senlaCourse.annotation.config.ConfigProperty;
 import java.io.Serializable;
 
 public class Master implements Serializable {
-    @ConfigProperty(configName = "configForAnnot.properties", propertyName = "master.id", type = Integer.class)
+    @ConfigProperty(configName = "Annotation\\resources\\configForAnnot.properties", propertyName = "master.id", type = Integer.class)
     private Integer id = 0;
-    @ConfigProperty(configName = "configForAnnot.properties", propertyName = "master.name", type = String.class)
+    @ConfigProperty(configName = "Annotation\\resources\\configForAnnot.properties", propertyName = "master.name", type = String.class)
     private String name;
-    @ConfigProperty(configName = "configForAnnot.properties", propertyName = "master.stateFree", type = Boolean.class)
+    @ConfigProperty(configName = "Annotation\\resources\\configForAnnot.properties", propertyName = "master.stateFree", type = Boolean.class)
     private Boolean stateFree;
     private Order order;
     private static Integer count = 0;
