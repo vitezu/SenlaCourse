@@ -20,7 +20,7 @@ public class Serialization {
         }
     }
 
-    public Object deserialize(String key) {
+      public Object deserialize(String key) {
         String path = Config.getInstance().getStringProperties(key);
         Object object = null;
         try (FileInputStream fileIn = new FileInputStream(path); ObjectInputStream in = new ObjectInputStream(fileIn)) {

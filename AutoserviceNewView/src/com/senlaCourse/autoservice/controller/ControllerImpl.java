@@ -7,8 +7,6 @@ import com.senlaCourse.autoservice.dependancy.DependancyInjection;
 import com.senlaCourse.autoservice.entity.Master;
 import com.senlaCourse.autoservice.entity.Order;
 import com.senlaCourse.autoservice.entity.Place;
-import com.senlaCourse.autoservice.stores.MasterStoreImpl;
-import com.senlaCourse.autoservice.stores.OrderStoreImpl;
 import com.senlaCourse.autoservice.stores.PlaceStoreImpl;
 import com.senlaCourse.autoservice.util.DateUtil;
 import com.senlaCourse.autoservice.util.Printer;
@@ -30,7 +28,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
-
 
 public class ControllerImpl implements IController {
     private final String MESSAGE5 = "Sorted by price of operation order";
@@ -129,7 +126,6 @@ public class ControllerImpl implements IController {
         return master;
     }
 
-
     @Override
     public void addOrder(Order order) {
         orderStore.add(order);
@@ -139,7 +135,6 @@ public class ControllerImpl implements IController {
     public void deleteOrder(Order order) {
         Boolean permit = Config.getInstance().getBoolProperties("permitDelOrder");
         if (permit) {
-
             orderStore.delete(order);
             order.setStateOrder(StateOrder.DELETED);
         }

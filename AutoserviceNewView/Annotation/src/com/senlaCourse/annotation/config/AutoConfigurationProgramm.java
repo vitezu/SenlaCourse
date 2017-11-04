@@ -7,13 +7,10 @@ import com.senlaCourse.annotation.property.PropertyManager;
 import java.lang.reflect.Field;
 
 public class AutoConfigurationProgramm {
-    private String configName;
-    private String propertyName;
-    private Class<?> type;
+
     private UtilConvertString util = new UtilConvertString();
 
     private Logger logger = Logger.getLogger(AutoConfigurationProgramm.class);
-    private PropertyManager propertyManager = new PropertyManager();
 
     private static AutoConfigurationProgramm instance = null;
 
@@ -24,26 +21,33 @@ public class AutoConfigurationProgramm {
         return instance;
     }
 
-    public void configureObject(String cl) {
-        Object object = new Object();
-        ConfigProperty configProperty;
+    public void configureObject(Object object) {
+
         try {
-            Class<?> clazz = Class.forName(cl);
+            Class<?> clazz = object.getClass();
             Field[] fields = clazz.getDeclaredFields();
             for (Field field : fields) {
-                configProperty = field.getAnnotation(ConfigProperty.class);
+
+                ConfigProperty configProperty = field.getAnnotation(ConfigProperty.class);
                 if (configProperty != null) {
+                    PropertyManager propertyManager = new PropertyManager();
+                    String configName;
+                    String propertyName;
+                    Class<?> type;
+                    Boolean isAccess = field.isAccessible();
                     field.setAccessible(true);
+
                     configName = configProperty.configName();
                     propertyName = configProperty.propertyName();
                     type = configProperty.type();
                     String value = propertyManager.getProps(configName, propertyName);
-                    object = util.convert(value, type);
-                    System.out.println(object);
+                    Object o = util.convert(value, type);
+                    field.set(object, o);
+                    field.setAccessible(isAccess);
                 }
             }
-        } catch (ClassNotFoundException e) {
-            logger.error("Class not found", e);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
     }
 }
