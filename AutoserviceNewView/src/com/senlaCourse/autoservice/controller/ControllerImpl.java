@@ -3,6 +3,7 @@ package com.senlaCourse.autoservice.controller;
 import com.senlaCourse.autoservice.api.controller.IController;
 import com.senlaCourse.autoservice.api.story.IMasterStore;
 import com.senlaCourse.autoservice.api.story.IOrderStore;
+import com.senlaCourse.autoservice.api.story.IPlaceStore;
 import com.senlaCourse.autoservice.dependancy.DependancyInjection;
 import com.senlaCourse.autoservice.entity.Master;
 import com.senlaCourse.autoservice.entity.Order;
@@ -47,7 +48,7 @@ public class ControllerImpl implements IController {
     private Calendar calendar = Calendar.getInstance();
     private Printer printer = new Printer();
     private IOrderStore orderStore =(IOrderStore) DependancyInjection.getInstance().load(IOrderStore.class);
-    private PlaceStoreImpl placeStore = (PlaceStoreImpl) DependancyInjection.getInstance().load(PlaceStoreImpl.class);
+    private IPlaceStore placeStore = (IPlaceStore) DependancyInjection.getInstance().load(IPlaceStore.class);
     private IMasterStore masterStore = (IMasterStore) DependancyInjection.getInstance().load(IMasterStore.class);
     private DateUtil dateUtil = new DateUtil();
     private Properties props = new Properties();
